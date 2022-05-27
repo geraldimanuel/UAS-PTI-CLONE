@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from 'react';
 import { Progress, Button, ButtonGroup} from "@chakra-ui/react";
 import './GamePage.css';
+import {Link} from 'react-router-dom';
 
 function GamePage() {
     // DECLARE BUTTONTYPE
@@ -193,6 +194,9 @@ function GamePage() {
                             <Button>Kampus</Button>
                             <Button>Cafe</Button>
                             <Button>Supermarket</Button>
+                            <Link to ="/">
+                                <Button>Logout</Button>
+                            </Link>
                         </ButtonGroup>
                     </div>
                 </div>

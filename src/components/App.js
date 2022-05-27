@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 import "./App.css";
+import {Link} from 'react-router-dom';
 
 function FormName() {
   return (
@@ -37,7 +38,9 @@ function App() {
     <div className="App">
       <FormName />
       <Select options={jurusan} />
-      <input className="submit" type="submit" value="Submit" />
+      <Link to="/GamePage">
+        <input className="submit" type="submit" value="Submit" />
+      </Link>
     </div>
   );
 }
