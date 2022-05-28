@@ -1,48 +1,17 @@
 import React from "react";
-import Select from "react-select";
-import "./App.css";
-import {Link} from 'react-router-dom';
-
-function FormName() {
-  return (
-    <form>
-      <div>
-        <input className="input" type="text" placeholder="Enter your Name" />
-      </div>
-    </form>
-  );
-}
-
-const jurusan = [
-  { label: "===== Fakultas Teknik & Informatika =====" },
-  { label: "Informatika", value: "Informatika" },
-  { label: "Sistem Informasi", value: "SistemInformasi" },
-  { label: "Teknik Komputer", value: "TeknikKomputer" },
-  { label: "Teknik Elektro", value: "TeknikElektro" },
-  { label: "Teknik Fisika", value: "TeknikFisika" },
-  { label: "===== Fakultas Bisnis =====" },
-  { label: "Perhotelan", value: "Hotel" },
-  { label: "Akuntansi", value: "Akuntan" },
-  { label: "Manajemen", value: "Manaj" },
-  { label: "===== Fakultas Ilmu Komunikasi =====" },
-  { label: "Komunikasi Strategis", value: "Stracom" },
-  { label: "Digital Jurnalistik", value: "DiJur" },
-  { label: "===== Fakultas Seni & Design =====" },
-  { label: "DKV", value: "DolphiDKV" },
-  { label: "Arsitektur", value: "Arsitektur" },
-  { label: "Film & Animasi", value: "Filmasi" }
-];
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import GamePage from "./GamePage";
+import LoginPage from "./LoginPage";
 
 function App() {
-  return (
-    <div className="App">
-      <FormName />
-      <Select options={jurusan} />
-      <Link to="/GamePage">
-        <input className="submit" type="submit" value="Submit" />
-      </Link>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<LoginPage />} />
+				<Route path="/GamePage" element={<GamePage />} />
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
