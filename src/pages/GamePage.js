@@ -5,7 +5,7 @@ import { Progress, Button, ButtonGroup } from "@chakra-ui/react";
 import "./GamePage.css";
 import { Link } from "react-router-dom";
 // impoAt app from "./components/App";
-import App from "./App";
+import App from "./LoginPage";
 import { isConstructorDeclaration } from "typescript";
 // import { clearInterval } from "timers";
 
