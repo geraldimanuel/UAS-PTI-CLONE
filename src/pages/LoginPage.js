@@ -41,7 +41,6 @@ function PilihJurusan() {
 			size="sm"
 			variant="filled"
 			icon={<ArrowDownIcon />}
-			// width="250px"
 			marginBottom={4}
 			value={loginData.jurusan}
 			onChange={(e) =>

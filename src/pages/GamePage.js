@@ -1,7 +1,18 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Progress, Button, ButtonGroup } from "@chakra-ui/react";
+import {
+	Progress,
+	Button,
+	ButtonGroup,
+	Flex,
+	Box,
+	Spacer,
+	extendTheme,
+	Heading,
+	Text,
+	Image,
+} from "@chakra-ui/react";
 import "./GamePage.css";
 import { Link } from "react-router-dom";
 // impoAt app from "./components/App";
@@ -10,6 +21,16 @@ import { isConstructorDeclaration } from "typescript";
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
 // import { clearInterval } from "timers";
+import umn from "../Assets/pictures/umn.jpg";
+import avatar from "../Assets/pictures/avatar.png";
+
+const theme = extendTheme({
+	textStyles: {
+		h1: {
+			fontWeight: "bold",
+		},
+	},
+});
 
 function GamePage(props) {
 	// DECLARE BUTTON TOGGLE
@@ -151,77 +172,154 @@ function GamePage(props) {
 	const { loginData, setLoginData } = useContext(UserContext);
 
 	return (
-		<div className="bungkus">
-			<div className="header">
-				<h1>7 Days Student</h1>
-				<h1>Halo! {loginData.nama}</h1>
-				<h1>{loginData.jurusan}</h1>
-			</div>
-			<div className="body">
-				<div className="progress-bar">
-					<div className="social-bar">
+		<Flex
+			// bgImage={umn}
+			// bgSize="1700px"
+			// bgPosition="center"
+			// h="100vh"
+			// bgRepeat="no-repeat"
+			// justifyContent="center"
+			alignItems="center"
+			p="30px"
+		>
+			<Box className="avatarGame">
+				<Image
+					src="https://cdn.discordapp.com/attachments/979290524680847370/980097903785816074/Untitled_design.png"
+					objectFit="cover"
+					boxSize="400px"
+				></Image>
+			</Box>
+			<Box className="interface">
+				<Box
+					className="greetings-weather"
+					bg="#EAF0F6"
+					w="400px"
+					p="20px"
+					marginBottom="20px"
+					borderRadius="30px"
+				>
+					<Heading size="lg">Good Morning!</Heading>
+					<Heading size="md" marginBottom="20px" color="#0B66AE">
+						Cloudy 30°C
+					</Heading>
+					<Text>{loginData.nama}</Text>
+					<Text as="i">{loginData.jurusan}</Text>
+				</Box>
+				<Box
+					className="progress-bar"
+					bg="#EAF0F6"
+					w="400px"
+					p="40px"
+					borderRadius="30px"
+					marginBottom="10px"
+					marginTop="20px"
+					display="flex"
+					flexDirection="column"
+				>
+					<Box className="study-bar">
 						<Progress
 							value={statusBelajar}
-							weight="30px"
+							height="25px"
 							marginBottom={4}
 							aria-valuemin={0}
 							aria-valuemax={100}
+							bg="white"
+							borderRadius="30px"
 						/>
-					</div>
-					<div className="left-right-bar">
-						<div className="left-bar">
-							<Progress
-								value={50 - statusMakan}
-								height="20px"
-								marginBottom={2}
-							/>
-							<Progress
-								value={50 - statusMain}
-								height="20px"
-								marginBottom={2}
-							/>
-						</div>
-						<div className="right-bar">
-							<Progress
-								value={50 - statusTuru}
-								height="20px"
-								marginBottom={2}
-							/>
-							<Progress value={50 - statusSosial} height="20px" />
-						</div>
-					</div>
-				</div>
-				<div className="activity-button-group">
-					<ButtonGroup spacing="6">
-						<Button id="tombolSleep" onClick={sleepHandler}>
-							Sleep
-						</Button>
-						<Button id="tombolEat" onClick={eatHandler}>
-							Eat
-						</Button>
-						<Button id="tombolDiscord" onClick={discordHandler}>
-							Discord
-						</Button>
-						<Button id="tombolBelajar" onClick={belajarHandler}>
-							Belajar
-						</Button>
-						<Button id="tombolMain" onClick={mainHandler}>
-							Main
-						</Button>
-					</ButtonGroup>
-					<ButtonGroup spacing="6">
-						<Button>Home</Button>
-						<Button>Kampus</Button>
-						<Button>Cafe</Button>
-						<Button>Supermarket</Button>
-						<Link to="/">
-							<Button>Logout</Button>
-						</Link>
-					</ButtonGroup>
-				</div>
-			</div>
-			<div className="cobaModular"></div>
-		</div>
+					</Box>
+					<Box className="main-bar">
+						<Progress
+							value={50 - statusMakan}
+							height="25px"
+							marginBottom={2}
+							bg="white"
+							borderRadius="30px"
+						/>
+						<Progress
+							value={50 - statusMain}
+							height="25px"
+							marginBottom={2}
+							bg="white"
+							borderRadius="30px"
+						/>
+						<Progress
+							value={50 - statusTuru}
+							height="25px"
+							marginBottom={2}
+							bg="white"
+							borderRadius="30px"
+						/>
+						<Progress
+							value={50 - statusSosial}
+							height="25px"
+							bg="white"
+							borderRadius="30px"
+						/>
+					</Box>
+				</Box>
+				<Box
+					className="activity-button-group"
+					bg="#EAF0F6"
+					borderRadius="30px"
+					w="400px"
+					p="20px"
+					display="flex"
+					flexDirection="row"
+					flexWrap="wrap"
+					gap="15px"
+					justifyContent="center"
+				>
+					<Button
+						id="tombolSleep"
+						onClick={sleepHandler}
+						bg="#D0DCE5"
+						borderRadius="30px"
+						width="160px"
+					>
+						Sleep
+					</Button>
+					<Button
+						id="tombolEat"
+						onClick={eatHandler}
+						bg="#D0DCE5"
+						borderRadius="30px"
+						width="160px"
+					>
+						Eat
+					</Button>
+					<Button
+						id="tombolDiscord"
+						onClick={discordHandler}
+						bg="#D0DCE5"
+						borderRadius="30px"
+						width="160px"
+					>
+						Discord
+					</Button>
+					<Button
+						id="tombolBelajar"
+						onClick={belajarHandler}
+						bg="#D0DCE5"
+						borderRadius="30px"
+						width="160px"
+					>
+						Belajar
+					</Button>
+					{/* <Button id="tombolMain" onClick={mainHandler}>
+								Main
+							</Button> */}
+				</Box>
+				{/* <ButtonGroup spacing="6">
+								<Button>Home</Button>
+								<Button>Kampus</Button>
+								<Button>Cafe</Button>
+								<Button>Supermarket</Button>
+								<Link to="/">
+									<Button>Logout</Button>
+								</Link>
+							</ButtonGroup> */}
+			</Box>
+		</Flex>
 	);
 }
 
