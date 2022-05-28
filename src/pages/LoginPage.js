@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./LoginPage.css";
 import { Link } from "react-router-dom";
 import { Select, Input, Button, Flex, Spacer, Box } from "@chakra-ui/react";
@@ -8,15 +8,18 @@ import GamePage from "./GamePage";
 import { useState } from "react";
 // import ImageSlider from "./ImageSlider";
 // import { SliderData } from "./SliderData";
+import { UpdateData } from "../App";
+import { UserContext } from "../lib/UserContext";
 
 function FormName() {
-	const [name, setName] = useState("");
+	const { loginData, setLoginData } = useContext(UserContext);
 
 	const handleChange = (e) => {
-		setName(e.target.value);
+		setLoginData({
+			...loginData,
+			nama: e.target.value,
+		});
 	};
-
-	console.log(name);
 
 	return (
 		<Input
@@ -30,6 +33,8 @@ function FormName() {
 }
 
 function PilihJurusan() {
+	const { loginData, setLoginData } = useContext(UserContext);
+
 	return (
 		<Select
 			placeholder="Pilih Jurusan"
@@ -38,20 +43,27 @@ function PilihJurusan() {
 			icon={<ArrowDownIcon />}
 			// width="250px"
 			marginBottom={4}
+			value={loginData.jurusan}
+			onChange={(e) =>
+				setLoginData({
+					...loginData,
+					jurusan: e.target.value,
+				})
+			}
 		>
-			<option value="infor">Informatika</option>
-			<option value="sisin">Sistem Informasi</option>
-			<option value="tekom">Teknik Komputer</option>
-			<option value="telektro">Teknik Elektro</option>
-			<option value="tefisik">Teknik Fisika</option>
-			<option value="hotel">Perhotelan</option>
-			<option value="akuntansi">Akuntansi</option>
-			<option value="manajemen">Manajemen</option>
-			<option value="Stracom">Komunikasi Strategis</option>
-			<option value="DiJur">Digital Jurnalistik</option>
-			<option value="DolphiDKV">DKV</option>
+			<option value="Informatika">Informatika</option>
+			<option value="Sistem Informasi">Sistem Informasi</option>
+			<option value="Teknik Komputer">Teknik Komputer</option>
+			<option value="Teknik Elektro">Teknik Elektro</option>
+			<option value="Teknik Fisika">Teknik Fisika</option>
+			<option value="Perhotelan">Perhotelan</option>
+			<option value="Akuntansi">Akuntansi</option>
+			<option value="Manajemen">Manajemen</option>
+			<option value="Komunikasi Strategis">Komunikasi Strategis</option>
+			<option value="Digital Jurnalistik">Digital Jurnalistik</option>
+			<option value="DKV">DKV</option>
 			<option value="Arsitektur">Arsitektur</option>
-			<option value="Filmasi">Film & Animasi</option>
+			<option value="Film & Animasi">Film & Animasi</option>
 		</Select>
 	);
 }

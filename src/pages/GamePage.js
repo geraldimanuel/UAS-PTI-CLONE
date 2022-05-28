@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 // impoAt app from "./components/App";
 import App from "./LoginPage";
 import { isConstructorDeclaration } from "typescript";
+import { useContext } from "react";
+import { UserContext } from "../lib/UserContext";
 // import { clearInterval } from "timers";
 
 function GamePage(props) {
@@ -146,11 +148,14 @@ function GamePage(props) {
 		setIsClickedMain(!isClickedMain);
 	}
 
+	const { loginData, setLoginData } = useContext(UserContext);
+
 	return (
 		<div className="bungkus">
 			<div className="header">
 				<h1>7 Days Student</h1>
-				<h1>Halo! {props.name}</h1>
+				<h1>Halo! {loginData.nama}</h1>
+				<h1>{loginData.jurusan}</h1>
 			</div>
 			<div className="body">
 				<div className="progress-bar">
