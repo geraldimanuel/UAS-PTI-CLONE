@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
 	Progress,
 	Button,
@@ -19,91 +19,47 @@ import {
 	DrawerCloseButton,
 	useDisclosure,
 } from "@chakra-ui/react";
-import "./GamePage.css";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
+import { Icon } from "@iconify/react";
 // import { Weather } from "../components/Weather/Weather";
 
-// import { Location } from "../lib/Location";
+import { Location } from "../lib/Location";
 
-function DrawerExample() {
+function GamePage() {
+	// const checkAlert = document.getElementById("alertMakan").value;
+
+	// DECLARE BUKA TUTUP DRAWER
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 
-	return (
-		<Flex>
-			<Button
-				ref={btnRef}
-				bg="#D0DCE5"
-				borderRadius="30px"
-				width="150px"
-				onClick={onOpen}
-			>
-				Pindah tempat
-			</Button>
-			<Drawer
-				isOpen={isOpen}
-				placement="right"
-				onClose={onClose}
-				finalFocusRef={btnRef}
-			>
-				<DrawerOverlay />
-				<DrawerContent>
-					<DrawerCloseButton />
-					<DrawerHeader>Mau pergi kemana?</DrawerHeader>
-
-					<DrawerBody>
-						<Flex
-							flexDirection="column"
-							gap="10px"
-							justifyContent="center"
-							alignItems="center"
-						>
-							<Button bg="#D0DCE5" borderRadius="30px" width="160px">
-								Home
-							</Button>
-							<Button bg="#D0DCE5" borderRadius="30px" width="160px">
-								Kampus
-							</Button>
-							<Button bg="#D0DCE5" borderRadius="30px" width="160px">
-								Cafe
-							</Button>
-							<Button bg="#D0DCE5" borderRadius="30px" width="160px">
-								Supermarket
-							</Button>
-						</Flex>
-					</DrawerBody>
-
-					<DrawerFooter>
-						<Button
-							variant="outline"
-							mr={3}
-							onClick={onClose}
-							bg="#D0DCE5"
-							borderRadius="30px"
-							width="100px"
-						>
-							Cancel
-						</Button>
-					</DrawerFooter>
-				</DrawerContent>
-			</Drawer>
-		</Flex>
-	);
-}
-
-function GamePage() {
 	// DECLARE BUTTON TOGGLE
 	const [button, setButton] = useState("");
+	const [where, setWhere] = useState("");
 
-	// UNTUK CEK TOMBOL APA YANG SEDANG DITEKAN
-
+	// UNTUK CEK TOMBOL AKTIVITAS APA YANG SEDANG DITEKAN
 	const [isClickedTidur, setIsClickedTidur] = useState(true);
 	const [isClickedMakan, setIsClickedMakan] = useState(true);
 	const [isClickedMain, setIsClickedMain] = useState(true);
 	const [isClickedBelajar, setIsClickedBelajar] = useState(true);
 	const [isClickedSosial, setIsClickedSosial] = useState(true);
+
+	// UNTUK CEK TOMBOL YANG DITEKAN *biar berubah warna*
+	const [warnaSleep, setWarnaSleep] = useState("#D0DCE5");
+	const [warnaMakan, setWarnaMakan] = useState("#D0DCE5");
+	const [warnaMain, setWarnaMain] = useState("#D0DCE5");
+	const [warnaBelajar, setWarnaBelajar] = useState("#D0DCE5");
+	const [warnaHome, setWarnaHome] = useState("#D0DCE5");
+	const [warnaKampus, setWarnaKampus] = useState("#D0DCE5");
+	const [warnaCafe, setWarnaCafe] = useState("#D0DCE5");
+	const [warnaSupermarket, setWarnaSupermarket] = useState("#D0DCE5");
+
+	// UNTUK CEK TOMBOL TEMPAT APA YANG SEDANG DITEKAN
+
+	const [isClickedHome, setIsClickedHome] = useState(true);
+	const [isClickedKampus, setIsClickedKampus] = useState(true);
+	const [isClickedCafe, setIsClickedCafe] = useState(true);
+	const [isClickedSupermarket, setIsClickedSupermarket] = useState(true);
 
 	// DECLARE UNTUK NAIK TURUN STATS
 	const [statusMakan, setstatusMakan] = useState(0);
@@ -112,34 +68,164 @@ function GamePage() {
 	const [statusSosial, setstatusSosial] = useState(0);
 	const [statusBelajar, setstatusBelajar] = useState(0);
 
-	const updateStatus = (status) => {
-		if (status === "") {
+	const updateStatus = (status, tempat) => {
+		if (status === "" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
-		} else if (status === "tidur") {
+		} else if (status === "tidur" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter - 0.5); //ini naik
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
-		} else if (status === "makan") {
+		} else if (status === "makan" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
-		} else if (status === "sosial") {
+		} else if (status === "sosial" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.3); //ini naik
-		} else if (status === "belajar") {
+		} else if (status === "belajar" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
 			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
-		} else if (status === "main") {
+		} else if (status === "main" && tempat === "") {
+			setstatusMakan((prevCounter) => prevCounter + 0.3);
+			setstatusTuru((prevCounter) => prevCounter + 0.2); //ini naik
+			setstatusMain((prevCounter) => prevCounter - 0.4);
+			setstatusSosial((prevCounter) => prevCounter - 0.15); // ini naik
+		}
+		// INI RUMAH
+		else if (status === "" && tempat === "rumah") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "tidur" && tempat === "rumah") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter - 0.5); //ini naik
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "makan" && tempat === "rumah") {
+			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "sosial" && tempat === "rumah") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter - 0.3); //ini naik
+		} else if (status === "belajar" && tempat === "rumah") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
+		} else if (status === "main" && tempat === "rumah") {
+			setstatusMakan((prevCounter) => prevCounter + 0.3);
+			setstatusTuru((prevCounter) => prevCounter + 0.2); //ini naik
+			setstatusMain((prevCounter) => prevCounter - 0.4);
+			setstatusSosial((prevCounter) => prevCounter - 0.15); // ini naik
+		}
+		// INI KAMPUS
+		else if (status === "" && tempat === "kampus") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "tidur" && tempat === "kampus") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "makan" && tempat === "kampus") {
+			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "sosial" && tempat === "kampus") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter - 0.3); //ini naik
+		} else if (status === "belajar" && tempat === "kampus") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
+		} else if (status === "main" && tempat === "kampus") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		}
+		// INI CAFE
+		else if (status === "" && tempat === "cafe") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "tidur" && tempat === "cafe") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "makan" && tempat === "cafe") {
+			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "sosial" && tempat === "cafe") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "belajar" && tempat === "cafe") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "main" && tempat === "cafe") {
+			setstatusMakan((prevCounter) => prevCounter + 0.3);
+			setstatusTuru((prevCounter) => prevCounter + 0.2); //ini naik
+			setstatusMain((prevCounter) => prevCounter - 0.4);
+			setstatusSosial((prevCounter) => prevCounter - 0.15); // ini naik
+		}
+		// INI SUPERMARKET
+		else if (status === "" && tempat === "supermarket") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "tidur" && tempat === "supermarket") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "makan" && tempat === "supermarket") {
+			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.2);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "sosial" && tempat === "supermarket") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "belajar" && tempat === "supermarket") {
+			setstatusMakan((prevCounter) => prevCounter + 0.4);
+			setstatusTuru((prevCounter) => prevCounter + 0.2);
+			setstatusMain((prevCounter) => prevCounter + 0.3);
+			setstatusSosial((prevCounter) => prevCounter + 0.1);
+		} else if (status === "main" && tempat === "supermarket") {
 			setstatusMakan((prevCounter) => prevCounter + 0.3);
 			setstatusTuru((prevCounter) => prevCounter + 0.2); //ini naik
 			setstatusMain((prevCounter) => prevCounter - 0.4);
@@ -165,11 +251,87 @@ function GamePage() {
 	// tiap 1 detik function sbb akan dijalankan
 	useEffect(() => {
 		const interval = setInterval(() => {
-			updateStatus(button);
-			searchLocation();
-		}, 500);
+			updateStatus(button, where);
+			// searchLocation();
+		}, 1000);
 		return () => clearInterval(interval);
 	});
+
+	// FUNCTION UNTUK ALERT
+	// function Alert() {
+	// 	if (checkAlert === 25) {
+	// 		alert("you're hungry");
+	// 	}
+	// }
+
+	// FUNCTION TOGGLE PINDAH TEMPAT
+	// function toggle rumah
+	function toggleHouse() {
+		setIsClickedKampus(true);
+		setIsClickedCafe(true);
+		setIsClickedSupermarket(true);
+
+		if (isClickedHome) {
+			setWhere("rumah");
+		} else {
+			setWhere("");
+		}
+		setIsClickedHome(!isClickedHome);
+	}
+
+	// function toggle kampus
+	function toggleKampus() {
+		setIsClickedHome(true);
+		setIsClickedCafe(true);
+		setIsClickedSupermarket(true);
+
+		if (isClickedKampus) {
+			setWhere("kampus");
+			setWarnaSleep("#687D8E");
+			setWarnaMain("#687D8E");
+		} else {
+			setWhere("");
+			setWarnaSleep("#D0DCE5");
+			setWarnaMain("#D0DCE5");
+		}
+		setIsClickedKampus(!isClickedKampus);
+	}
+
+	// function toggle cafe
+	function toggleCafe() {
+		setIsClickedHome(true);
+		setIsClickedKampus(true);
+		setIsClickedSupermarket(true);
+
+		if (isClickedCafe) {
+			setWhere("cafe");
+			setWarnaBelajar("#687D8E");
+			setWarnaSleep("#687D8E");
+		} else {
+			setWhere("");
+			setWarnaBelajar("#D0DCE5");
+			setWarnaSleep("#D0DCE5");
+		}
+		setIsClickedCafe(!isClickedCafe);
+	}
+
+	// function toggle supermarket
+	function toggleSupermarket() {
+		setIsClickedHome(true);
+		setIsClickedKampus(true);
+		setIsClickedCafe(true);
+
+		if (isClickedSupermarket) {
+			setWhere("supermarket");
+			setWarnaBelajar("#687D8E");
+			setWarnaSleep("#687D8E");
+		} else {
+			setWhere("");
+			setWarnaBelajar("#D0DCE5");
+			setWarnaSleep("#D0DCE5");
+		}
+		setIsClickedSupermarket(!isClickedSupermarket);
+	}
 
 	// function toggle tidur
 	function sleepHandler() {
@@ -178,10 +340,29 @@ function GamePage() {
 		setIsClickedBelajar(true);
 		setIsClickedSosial(true);
 
-		if (isClickedTidur) {
+		if (
+			isClickedTidur ||
+			(isClickedTidur && isClickedKampus) ||
+			(isClickedTidur && isClickedCafe) ||
+			(isClickedTidur && isClickedSupermarket)
+		) {
 			setButton("tidur");
+			setWarnaSleep("#8FC3EE");
+		} else if (
+			(isClickedTidur && !isClickedKampus) ||
+			(isClickedTidur && !isClickedCafe) ||
+			(isClickedTidur && !isClickedSupermarket)
+		) {
+			setWarnaSleep("#687D8E");
+		} else if (
+			(!isClickedTidur && !isClickedKampus) ||
+			(!isClickedTidur && !isClickedCafe) ||
+			(!isClickedTidur && !isClickedSupermarket)
+		) {
+			setWarnaSleep("#687D8E");
 		} else {
 			setButton("");
+			setWarnaSleep("#D0DCE5");
 		}
 		setIsClickedTidur(!isClickedTidur);
 	}
@@ -195,8 +376,10 @@ function GamePage() {
 
 		if (isClickedMakan) {
 			setButton("makan");
+			setWarnaMakan("#8FC3EE");
 		} else {
 			setButton("");
+			setWarnaMakan("#D0DCE5");
 		}
 		setIsClickedMakan(!isClickedMakan);
 	}
@@ -210,8 +393,10 @@ function GamePage() {
 
 		if (isClickedSosial) {
 			setButton("sosial");
+			// setWarnaSosial("#8FC3EE");
 		} else {
 			setButton("");
+			// setWarnaSosial("#D0DCE5");
 		}
 		setIsClickedSosial(!isClickedSosial);
 	}
@@ -223,10 +408,26 @@ function GamePage() {
 		setIsClickedMakan(true);
 		setIsClickedTidur(true);
 
-		if (isClickedBelajar) {
+		if (
+			isClickedBelajar ||
+			(isClickedBelajar && isClickedCafe) ||
+			(isClickedBelajar && isClickedSupermarket)
+		) {
 			setButton("belajar");
+			setWarnaBelajar("#8FC3EE");
+		} else if (
+			(isClickedBelajar && !isClickedCafe) ||
+			(isClickedBelajar && !isClickedSupermarket)
+		) {
+			setWarnaBelajar("#687D8E");
+		} else if (
+			(!isClickedBelajar && !isClickedCafe) ||
+			(!isClickedBelajar && !isClickedSupermarket)
+		) {
+			setWarnaBelajar("#687D8E");
 		} else {
 			setButton("");
+			setWarnaBelajar("#D0DCE5");
 		}
 		setIsClickedBelajar(!isClickedBelajar);
 	}
@@ -238,10 +439,16 @@ function GamePage() {
 		setIsClickedMakan(true);
 		setIsClickedTidur(true);
 
-		if (isClickedMain) {
+		if (isClickedMain && isClickedKampus) {
 			setButton("main");
+			setWarnaMain("#8FC3EE");
+		} else if (isClickedMakan && !isClickedKampus) {
+			setWarnaMain("#687D8E");
+		} else if (!isClickedMain && !isClickedKampus) {
+			setWarnaMain("#687D8E");
 		} else {
 			setButton("");
+			setWarnaMain("#D0DCE5");
 		}
 		setIsClickedMain(!isClickedMain);
 	}
@@ -258,6 +465,7 @@ function GamePage() {
 			// justifyContent="center"
 			alignItems="center"
 			p="30px"
+			flexDirection={{ base: "column", md: "row" }}
 		>
 			<Box className="avatarGame">
 				<Image
@@ -280,7 +488,7 @@ function GamePage() {
 				>
 					<Heading size="lg">Good Morning!</Heading>
 					{data.weather ? (
-						<Heading size="md">
+						<Heading size="md" color="#0B66AE">
 							{data.weather[0].main} {data.main.temp.toFixed()}°F
 						</Heading>
 					) : null}
@@ -290,58 +498,87 @@ function GamePage() {
 					</Text>
 					<Box></Box>
 				</Box>
-				<Box
+				<Flex
 					className="progress-bar"
 					bg="#EAF0F6"
-					pt="30px"
-					pb="30px"
-					ps="30px"
-					pe="30px"
+					p="30px"
 					borderRadius="30px"
-					display="flex"
 					flexDirection="column"
+					gap={4}
 				>
-					<Box className="study-bar">
+					<Flex className="study-bar" alignItems="center" gap="5px">
+						<Icon icon="fa-solid:book-reader" color="#0b66ae" width="25px" />
 						<Progress
 							value={statusBelajar}
 							height="25px"
-							marginBottom={4}
 							aria-valuemin={0}
 							aria-valuemax={100}
 							bg="white"
 							borderRadius="30px"
+							icon="fa-solid:book-reader"
+							w="full"
 						/>
-					</Box>
-					<Box className="main-bar">
-						<Progress
-							value={50 - statusMakan}
-							height="25px"
-							marginBottom={2}
-							bg="white"
-							borderRadius="30px"
-						/>
-						<Progress
-							value={50 - statusMain}
-							height="25px"
-							marginBottom={2}
-							bg="white"
-							borderRadius="30px"
-						/>
-						<Progress
-							value={50 - statusTuru}
-							height="25px"
-							marginBottom={2}
-							bg="white"
-							borderRadius="30px"
-						/>
-						<Progress
-							value={50 - statusSosial}
-							height="25px"
-							bg="white"
-							borderRadius="30px"
-						/>
-					</Box>
-				</Box>
+					</Flex>
+					<Flex className="main-bar" gap={2} flexDirection="column" pe="150px">
+						<Flex alignItems="center" gap="5px">
+							<Icon
+								icon="icomoon-free:spoon-knife"
+								color="#0b66ae"
+								width="25px"
+							/>
+							<Progress
+								value={50 - statusMakan}
+								height="25px"
+								bg="white"
+								borderRadius="30px"
+								id="alertMakan"
+								w="full"
+							/>
+						</Flex>
+						<Flex alignItems="center" gap="5px">
+							<Icon
+								icon="icon-park-solid:game-three"
+								color="#0b66ae"
+								width="25px"
+							/>
+							<Progress
+								value={50 - statusMain}
+								height="25px"
+								bg="white"
+								borderRadius="30px"
+								w="full"
+							/>
+						</Flex>
+						<Flex alignItems="center" gap="5px">
+							<Icon
+								icon="icon-park-solid:sleep-two"
+								color="#0b66ae"
+								width="25px"
+							/>
+							<Progress
+								value={50 - statusTuru}
+								height="25px"
+								bg="white"
+								borderRadius="30px"
+								w="full"
+							/>
+						</Flex>
+						<Flex alignItems="center" gap="5px">
+							<Icon
+								icon="healthicons:group-discussion-meeting"
+								color="#0b66ae"
+								width="25px"
+							/>
+							<Progress
+								value={50 - statusSosial}
+								height="25px"
+								bg="white"
+								borderRadius="30px"
+								w="full"
+							/>
+						</Flex>
+					</Flex>
+				</Flex>
 				<Flex
 					className="activity-button-group"
 					bg="#EAF0F6"
@@ -355,7 +592,7 @@ function GamePage() {
 					<Button
 						id="tombolSleep"
 						onClick={sleepHandler}
-						bg="#D0DCE5"
+						bg={warnaSleep}
 						borderRadius="30px"
 						width="160px"
 					>
@@ -364,7 +601,7 @@ function GamePage() {
 					<Button
 						id="tombolEat"
 						onClick={eatHandler}
-						bg="#D0DCE5"
+						bg={warnaMakan}
 						borderRadius="30px"
 						width="160px"
 					>
@@ -373,7 +610,7 @@ function GamePage() {
 					<Button
 						id="tombolMain"
 						onClick={mainHandler}
-						bg="#D0DCE5"
+						bg={warnaMain}
 						borderRadius="30px"
 						width="160px"
 					>
@@ -382,47 +619,109 @@ function GamePage() {
 					<Button
 						id="tombolBelajar"
 						onClick={belajarHandler}
-						bg="#D0DCE5"
+						bg={warnaBelajar}
 						borderRadius="30px"
 						width="160px"
 					>
 						Belajar
 					</Button>
 					{/* <Button id="tombolMain" onClick={mainHandler}>
-						Main
-					</Button> */}
+							Main
+						</Button> */}
 				</Flex>
-				{/* <Flex
+				<Flex
 					bg="#EAF0F6"
-					// w="400px"
-					p="20px"
 					borderRadius="30px"
+					p="20px"
 					flexDirection="row"
 					flexWrap="wrap"
 					gap="15px"
 					justifyContent="center"
 				>
-					<Button bg="#D0DCE5" borderRadius="30px" width="160px">
-						Home
-					</Button>
-					<Button bg="#D0DCE5" borderRadius="30px" width="160px">
-						Kampus
-					</Button>
-					<Button bg="#D0DCE5" borderRadius="30px" width="160px">
-						Cafe
-					</Button>
-					<Button bg="#D0DCE5" borderRadius="30px" width="160px">
-						Supermarket
-					</Button>
-				</Flex> */}
-				<Box>
-					<DrawerExample />
+					<Flex>
+						<Button
+							ref={btnRef}
+							bg="#D0DCE5"
+							borderRadius="30px"
+							width="150px"
+							onClick={onOpen}
+						>
+							Pindah tempat
+						</Button>
+						<Drawer
+							isOpen={isOpen}
+							placement="right"
+							onClose={onClose}
+							finalFocusRef={btnRef}
+						>
+							<DrawerOverlay />
+							<DrawerContent>
+								<DrawerCloseButton />
+								<DrawerHeader>Mau pergi kemana?</DrawerHeader>
+
+								<DrawerBody>
+									<Flex
+										flexDirection="column"
+										gap="10px"
+										justifyContent="center"
+										alignItems="center"
+									>
+										<Button
+											bg={warnaHome}
+											borderRadius="30px"
+											width="160px"
+											onClick={toggleHouse}
+										>
+											Home
+										</Button>
+										<Button
+											bg={warnaKampus}
+											borderRadius="30px"
+											width="160px"
+											onClick={toggleKampus}
+										>
+											Kampus
+										</Button>
+										<Button
+											bg={warnaCafe}
+											borderRadius="30px"
+											width="160px"
+											onClick={toggleCafe}
+										>
+											Cafe
+										</Button>
+										<Button
+											bg={warnaSupermarket}
+											borderRadius="30px"
+											width="160px"
+											onClick={toggleSupermarket}
+										>
+											Supermarket
+										</Button>
+									</Flex>
+								</DrawerBody>
+
+								<DrawerFooter>
+									<Button
+										variant="outline"
+										mr={3}
+										onClick={onClose}
+										bg="#D0DCE5"
+										borderRadius="30px"
+										width="100px"
+									>
+										Cancel
+									</Button>
+								</DrawerFooter>
+							</DrawerContent>
+						</Drawer>
+					</Flex>
 					<Link to="/">
-						<Button borderRadius="30px" width="100px" bg="#D0DCE5">
+						<Button borderRadius="30px" width="150px" bg="#D0DCE5">
 							Logout
 						</Button>
 					</Link>
-				</Box>
+				</Flex>
 			</Flex>
 		</Flex>
 	);

@@ -6,8 +6,8 @@ import { ArrowDownIcon } from "@chakra-ui/icons";
 // import Avatar from "./Avatar";
 import GamePage from "./GamePage";
 import { useState } from "react";
-// import ImageSlider from "./ImageSlider";
-// import { SliderData } from "./SliderData";
+import ImageSlider from "../components/Carousel/ImageSlider";
+import { SliderData } from "../components/Carousel/SliderData";
 import { UpdateData } from "../App";
 import { UserContext } from "../lib/UserContext";
 
@@ -69,23 +69,22 @@ function PilihJurusan() {
 
 function LoginPage() {
 	return (
-		<div className="App">
-			<Flex alignItems="center" justifyContent="center">
-				<Box>
-					{/* <ImageSlider slides={SliderData}/> */}
-					<img
-						src="https://cdn.discordapp.com/attachments/979290524680847370/979293672799625266/soresunset.jpg"
-						height="200"
-						width="300"
-					/>
-					<FormName />
-					<PilihJurusan />
-					<Link to="/GamePage">
-						<Button>Submit</Button>
-					</Link>
-				</Box>
-			</Flex>
-		</div>
+		<Flex alignItems="center" justifyContent="center" flexDirection="column">
+			<Box className="carousel">
+				<ImageSlider slides={SliderData} />
+			</Box>
+			<Box className="inputBar">
+				<FormName />
+			</Box>
+			<Box className="dropDown">
+				<PilihJurusan />
+			</Box>
+			<Box className="submitButton">
+				<Link to="/GamePage">
+					<Button>Submit</Button>
+				</Link>
+			</Box>
+		</Flex>
 	);
 }
 
