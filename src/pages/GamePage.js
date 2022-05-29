@@ -7,32 +7,93 @@ import {
 	ButtonGroup,
 	Flex,
 	Box,
-	Spacer,
-	extendTheme,
 	Heading,
 	Text,
 	Image,
+	Drawer,
+	DrawerBody,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerOverlay,
+	DrawerContent,
+	DrawerCloseButton,
+	useDisclosure,
 } from "@chakra-ui/react";
 import "./GamePage.css";
 import { Link } from "react-router-dom";
-// impoAt app from "./components/App";
-import App from "./LoginPage";
-import { isConstructorDeclaration } from "typescript";
 import { useContext } from "react";
 import { UserContext } from "../lib/UserContext";
-// import { clearInterval } from "timers";
-import umn from "../Assets/pictures/umn.jpg";
-import avatar from "../Assets/pictures/avatar.png";
+// import { Weather } from "../components/Weather/Weather";
 
-const theme = extendTheme({
-	textStyles: {
-		h1: {
-			fontWeight: "bold",
-		},
-	},
-});
+// import { Location } from "../lib/Location";
 
-function GamePage(props) {
+function DrawerExample() {
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const btnRef = React.useRef();
+
+	return (
+		<Flex>
+			<Button
+				ref={btnRef}
+				bg="#D0DCE5"
+				borderRadius="30px"
+				width="150px"
+				onClick={onOpen}
+			>
+				Pindah tempat
+			</Button>
+			<Drawer
+				isOpen={isOpen}
+				placement="right"
+				onClose={onClose}
+				finalFocusRef={btnRef}
+			>
+				<DrawerOverlay />
+				<DrawerContent>
+					<DrawerCloseButton />
+					<DrawerHeader>Mau pergi kemana?</DrawerHeader>
+
+					<DrawerBody>
+						<Flex
+							flexDirection="column"
+							gap="10px"
+							justifyContent="center"
+							alignItems="center"
+						>
+							<Button bg="#D0DCE5" borderRadius="30px" width="160px">
+								Home
+							</Button>
+							<Button bg="#D0DCE5" borderRadius="30px" width="160px">
+								Kampus
+							</Button>
+							<Button bg="#D0DCE5" borderRadius="30px" width="160px">
+								Cafe
+							</Button>
+							<Button bg="#D0DCE5" borderRadius="30px" width="160px">
+								Supermarket
+							</Button>
+						</Flex>
+					</DrawerBody>
+
+					<DrawerFooter>
+						<Button
+							variant="outline"
+							mr={3}
+							onClick={onClose}
+							bg="#D0DCE5"
+							borderRadius="30px"
+							width="100px"
+						>
+							Cancel
+						</Button>
+					</DrawerFooter>
+				</DrawerContent>
+			</Drawer>
+		</Flex>
+	);
+}
+
+function GamePage() {
 	// DECLARE BUTTON TOGGLE
 	const [button, setButton] = useState("");
 
@@ -86,11 +147,27 @@ function GamePage(props) {
 		}
 	};
 
+	//WEATHER FUNCTION
+	const [data, setData] = useState({});
+	const [location, setLocation] = useState("");
+
+	const url = `https://api.openweathermap.org/data/2.5/weather?lat=-6.261180
+	&lon=106.616820&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`;
+
+	const searchLocation = (event) => {
+		axios.get(url).then((response) => {
+			setData(response.data);
+			console.log(response.data);
+		});
+		setLocation("");
+	};
+
 	// tiap 1 detik function sbb akan dijalankan
 	useEffect(() => {
 		const interval = setInterval(() => {
 			updateStatus(button);
-		}, 1000);
+			searchLocation();
+		}, 500);
 		return () => clearInterval(interval);
 	});
 
@@ -189,30 +266,38 @@ function GamePage(props) {
 					boxSize="400px"
 				></Image>
 			</Box>
-			<Box className="interface">
+			<Flex
+				className="interface"
+				width="400px"
+				gap="20px"
+				flexDirection="column"
+			>
 				<Box
 					className="greetings-weather"
 					bg="#EAF0F6"
-					w="400px"
 					p="20px"
-					marginBottom="20px"
 					borderRadius="30px"
 				>
 					<Heading size="lg">Good Morning!</Heading>
-					<Heading size="md" marginBottom="20px" color="#0B66AE">
-						Cloudy 30°C
-					</Heading>
-					<Text>{loginData.nama}</Text>
-					<Text as="i">{loginData.jurusan}</Text>
+					{data.weather ? (
+						<Heading size="md">
+							{data.weather[0].main} {data.main.temp.toFixed()}°F
+						</Heading>
+					) : null}
+					<Text fontSize="md">{loginData.nama}</Text>
+					<Text fontSize="sm" as="i">
+						{loginData.jurusan}
+					</Text>
+					<Box></Box>
 				</Box>
 				<Box
 					className="progress-bar"
 					bg="#EAF0F6"
-					w="400px"
-					p="40px"
+					pt="30px"
+					pb="30px"
+					ps="30px"
+					pe="30px"
 					borderRadius="30px"
-					marginBottom="10px"
-					marginTop="20px"
 					display="flex"
 					flexDirection="column"
 				>
@@ -257,13 +342,11 @@ function GamePage(props) {
 						/>
 					</Box>
 				</Box>
-				<Box
+				<Flex
 					className="activity-button-group"
 					bg="#EAF0F6"
 					borderRadius="30px"
-					w="400px"
 					p="20px"
-					display="flex"
 					flexDirection="row"
 					flexWrap="wrap"
 					gap="15px"
@@ -288,13 +371,13 @@ function GamePage(props) {
 						Eat
 					</Button>
 					<Button
-						id="tombolDiscord"
-						onClick={discordHandler}
+						id="tombolMain"
+						onClick={mainHandler}
 						bg="#D0DCE5"
 						borderRadius="30px"
 						width="160px"
 					>
-						Discord
+						Main
 					</Button>
 					<Button
 						id="tombolBelajar"
@@ -306,19 +389,41 @@ function GamePage(props) {
 						Belajar
 					</Button>
 					{/* <Button id="tombolMain" onClick={mainHandler}>
-								Main
-							</Button> */}
+						Main
+					</Button> */}
+				</Flex>
+				{/* <Flex
+					bg="#EAF0F6"
+					// w="400px"
+					p="20px"
+					borderRadius="30px"
+					flexDirection="row"
+					flexWrap="wrap"
+					gap="15px"
+					justifyContent="center"
+				>
+					<Button bg="#D0DCE5" borderRadius="30px" width="160px">
+						Home
+					</Button>
+					<Button bg="#D0DCE5" borderRadius="30px" width="160px">
+						Kampus
+					</Button>
+					<Button bg="#D0DCE5" borderRadius="30px" width="160px">
+						Cafe
+					</Button>
+					<Button bg="#D0DCE5" borderRadius="30px" width="160px">
+						Supermarket
+					</Button>
+				</Flex> */}
+				<Box>
+					<DrawerExample />
+					<Link to="/">
+						<Button borderRadius="30px" width="100px" bg="#D0DCE5">
+							Logout
+						</Button>
+					</Link>
 				</Box>
-				{/* <ButtonGroup spacing="6">
-								<Button>Home</Button>
-								<Button>Kampus</Button>
-								<Button>Cafe</Button>
-								<Button>Supermarket</Button>
-								<Link to="/">
-									<Button>Logout</Button>
-								</Link>
-							</ButtonGroup> */}
-			</Box>
+			</Flex>
 		</Flex>
 	);
 }
