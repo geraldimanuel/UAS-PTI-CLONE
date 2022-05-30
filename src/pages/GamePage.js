@@ -4,7 +4,6 @@ import { useState, useEffect, useContext } from "react";
 import {
 	Progress,
 	Button,
-	ButtonGroup,
 	Flex,
 	Box,
 	Heading,
@@ -54,6 +53,12 @@ function GamePage() {
 	const [warnaCafe, setWarnaCafe] = useState("#D0DCE5");
 	const [warnaSupermarket, setWarnaSupermarket] = useState("#D0DCE5");
 
+	// UNTUK HIDE TOMBOL SESUAI LOKASI
+	const [hideSleep, setHideSleep] = useState(true);
+	const [hideMakan, setHideMakan] = useState(true);
+	const [hideMain, setHideMain] = useState(true);
+	const [hideBelajar, setHideBelajar] = useState(true);
+
 	// UNTUK CEK TOMBOL TEMPAT APA YANG SEDANG DITEKAN
 
 	const [isClickedHome, setIsClickedHome] = useState(true);
@@ -74,32 +79,80 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "tidur" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter - 0.5); //ini naik
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "makan" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "sosial" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.3); //ini naik
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "belajar" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
 			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "main" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter + 0.3);
 			setstatusTuru((prevCounter) => prevCounter + 0.2); //ini naik
 			setstatusMain((prevCounter) => prevCounter - 0.4);
 			setstatusSosial((prevCounter) => prevCounter - 0.15); // ini naik
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		}
 		// INI RUMAH
 		else if (status === "" && tempat === "rumah") {
@@ -107,32 +160,80 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "tidur" && tempat === "rumah") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter - 0.5); //ini naik
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "makan" && tempat === "rumah") {
 			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "sosial" && tempat === "rumah") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.3); //ini naik
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "belajar" && tempat === "rumah") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
 			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "main" && tempat === "rumah") {
 			setstatusMakan((prevCounter) => prevCounter + 0.3);
 			setstatusTuru((prevCounter) => prevCounter + 0.2); //ini naik
 			setstatusMain((prevCounter) => prevCounter - 0.4);
 			setstatusSosial((prevCounter) => prevCounter - 0.15); // ini naik
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		}
 		// INI KAMPUS
 		else if (status === "" && tempat === "kampus") {
@@ -140,32 +241,68 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaKampus("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(false);
 		} else if (status === "tidur" && tempat === "kampus") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaKampus("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(false);
 		} else if (status === "makan" && tempat === "kampus") {
 			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaKampus("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(false);
 		} else if (status === "sosial" && tempat === "kampus") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.3); //ini naik
+			setWarnaKampus("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(false);
 		} else if (status === "belajar" && tempat === "kampus") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
 			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
+			setWarnaKampus("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(false);
 		} else if (status === "main" && tempat === "kampus") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaKampus("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(false);
 		}
 		// INI CAFE
 		else if (status === "" && tempat === "cafe") {
@@ -173,31 +310,73 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaCafe("#8FC3EE");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "tidur" && tempat === "cafe") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaCafe("#8FC3EE");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "makan" && tempat === "cafe") {
 			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaCafe("#8FC3EE");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "sosial" && tempat === "cafe") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaCafe("#8FC3EE");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else if (status === "belajar" && tempat === "cafe") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
-			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setstatusSosial((prevCounter) => prevCounter + 0.3);
+			setstatusBelajar((prevCounter) => prevCounter + 0.3); // naik tapi ga secepet di kampus
+			setWarnaCafe("#8FC3EE");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideBelajar(true);
 		} else if (status === "main" && tempat === "cafe") {
 			setstatusMakan((prevCounter) => prevCounter + 0.3);
 			setstatusTuru((prevCounter) => prevCounter + 0.2); //ini naik
 			setstatusMain((prevCounter) => prevCounter - 0.4);
 			setstatusSosial((prevCounter) => prevCounter - 0.15); // ini naik
+			setWarnaCafe("#8FC3EE");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(true);
+			setHideBelajar(true);
 		}
 		// INI SUPERMARKET
 		else if (status === "" && tempat === "supermarket") {
@@ -205,31 +384,65 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaSupermarket("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setHideSleep(false);
+			setHideBelajar(false);
 		} else if (status === "tidur" && tempat === "supermarket") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaSupermarket("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setHideSleep(false);
+			setHideBelajar(false);
 		} else if (status === "makan" && tempat === "supermarket") {
 			setstatusMakan((prevCounter) => prevCounter - 0.8); // ini naik
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.2);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaSupermarket("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setHideSleep(false);
+			setHideBelajar(false);
 		} else if (status === "sosial" && tempat === "supermarket") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaSupermarket("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
 		} else if (status === "belajar" && tempat === "supermarket") {
 			setstatusMakan((prevCounter) => prevCounter + 0.4);
 			setstatusTuru((prevCounter) => prevCounter + 0.2);
 			setstatusMain((prevCounter) => prevCounter + 0.3);
 			setstatusSosial((prevCounter) => prevCounter + 0.1);
+			setWarnaSupermarket("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setHideSleep(false);
+			setHideBelajar(false);
 		} else if (status === "main" && tempat === "supermarket") {
 			setstatusMakan((prevCounter) => prevCounter + 0.3);
 			setstatusTuru((prevCounter) => prevCounter + 0.2); //ini naik
 			setstatusMain((prevCounter) => prevCounter - 0.4);
 			setstatusSosial((prevCounter) => prevCounter - 0.15); // ini naik
+			setWarnaSupermarket("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setHideSleep(false);
+			setHideBelajar(false);
 		}
 	};
 
@@ -287,12 +500,14 @@ function GamePage() {
 
 		if (isClickedKampus) {
 			setWhere("kampus");
-			setWarnaSleep("#687D8E");
-			setWarnaMain("#687D8E");
+			// setHideSleep(false);
+			// setHideMain(false);
+			// setWarnaKampus("#8FC3EE");
 		} else {
 			setWhere("");
-			setWarnaSleep("#D0DCE5");
-			setWarnaMain("#D0DCE5");
+			// setHideSleep(true);
+			// setHideMain(true);
+			// setWarnaKampus("#D0DCE5");
 		}
 		setIsClickedKampus(!isClickedKampus);
 	}
@@ -305,12 +520,12 @@ function GamePage() {
 
 		if (isClickedCafe) {
 			setWhere("cafe");
-			setWarnaBelajar("#687D8E");
-			setWarnaSleep("#687D8E");
+			// setHideSleep(false);
+			// setWarnaCafe("#8FC3EE");
 		} else {
 			setWhere("");
-			setWarnaBelajar("#D0DCE5");
-			setWarnaSleep("#D0DCE5");
+			// setHideSleep(true);
+			// setWarnaCafe("#D0DCE5");
 		}
 		setIsClickedCafe(!isClickedCafe);
 	}
@@ -323,12 +538,8 @@ function GamePage() {
 
 		if (isClickedSupermarket) {
 			setWhere("supermarket");
-			setWarnaBelajar("#687D8E");
-			setWarnaSleep("#687D8E");
 		} else {
 			setWhere("");
-			setWarnaBelajar("#D0DCE5");
-			setWarnaSleep("#D0DCE5");
 		}
 		setIsClickedSupermarket(!isClickedSupermarket);
 	}
@@ -340,26 +551,9 @@ function GamePage() {
 		setIsClickedBelajar(true);
 		setIsClickedSosial(true);
 
-		if (
-			isClickedTidur ||
-			(isClickedTidur && isClickedKampus) ||
-			(isClickedTidur && isClickedCafe) ||
-			(isClickedTidur && isClickedSupermarket)
-		) {
+		if (isClickedTidur) {
 			setButton("tidur");
 			setWarnaSleep("#8FC3EE");
-		} else if (
-			(isClickedTidur && !isClickedKampus) ||
-			(isClickedTidur && !isClickedCafe) ||
-			(isClickedTidur && !isClickedSupermarket)
-		) {
-			setWarnaSleep("#687D8E");
-		} else if (
-			(!isClickedTidur && !isClickedKampus) ||
-			(!isClickedTidur && !isClickedCafe) ||
-			(!isClickedTidur && !isClickedSupermarket)
-		) {
-			setWarnaSleep("#687D8E");
 		} else {
 			setButton("");
 			setWarnaSleep("#D0DCE5");
@@ -408,23 +602,9 @@ function GamePage() {
 		setIsClickedMakan(true);
 		setIsClickedTidur(true);
 
-		if (
-			isClickedBelajar ||
-			(isClickedBelajar && isClickedCafe) ||
-			(isClickedBelajar && isClickedSupermarket)
-		) {
+		if (isClickedBelajar) {
 			setButton("belajar");
 			setWarnaBelajar("#8FC3EE");
-		} else if (
-			(isClickedBelajar && !isClickedCafe) ||
-			(isClickedBelajar && !isClickedSupermarket)
-		) {
-			setWarnaBelajar("#687D8E");
-		} else if (
-			(!isClickedBelajar && !isClickedCafe) ||
-			(!isClickedBelajar && !isClickedSupermarket)
-		) {
-			setWarnaBelajar("#687D8E");
 		} else {
 			setButton("");
 			setWarnaBelajar("#D0DCE5");
@@ -439,13 +619,9 @@ function GamePage() {
 		setIsClickedMakan(true);
 		setIsClickedTidur(true);
 
-		if (isClickedMain && isClickedKampus) {
+		if (isClickedMain) {
 			setButton("main");
 			setWarnaMain("#8FC3EE");
-		} else if (isClickedMakan && !isClickedKampus) {
-			setWarnaMain("#687D8E");
-		} else if (!isClickedMain && !isClickedKampus) {
-			setWarnaMain("#687D8E");
 		} else {
 			setButton("");
 			setWarnaMain("#D0DCE5");
@@ -589,42 +765,50 @@ function GamePage() {
 					gap="15px"
 					justifyContent="center"
 				>
-					<Button
-						id="tombolSleep"
-						onClick={sleepHandler}
-						bg={warnaSleep}
-						borderRadius="30px"
-						width="160px"
-					>
-						Sleep
-					</Button>
-					<Button
-						id="tombolEat"
-						onClick={eatHandler}
-						bg={warnaMakan}
-						borderRadius="30px"
-						width="160px"
-					>
-						Eat
-					</Button>
-					<Button
-						id="tombolMain"
-						onClick={mainHandler}
-						bg={warnaMain}
-						borderRadius="30px"
-						width="160px"
-					>
-						Main
-					</Button>
-					<Button
-						id="tombolBelajar"
-						onClick={belajarHandler}
-						bg={warnaBelajar}
-						borderRadius="30px"
-						width="160px"
-					>
-						Belajar
-					</Button>
+					{hideSleep && (
+						<Button
+							id="tombolSleep"
+							onClick={sleepHandler}
+							bg={warnaSleep}
+							borderRadius="30px"
+							width="160px"
+						>
+							Sleep
+						</Button>
+					)}
+					{hideMakan && (
+						<Button
+							id="tombolEat"
+							onClick={eatHandler}
+							bg={warnaMakan}
+							borderRadius="30px"
+							width="160px"
+						>
+							Eat
+						</Button>
+					)}
+					{hideMain && (
+						<Button
+							id="tombolMain"
+							onClick={mainHandler}
+							bg={warnaMain}
+							borderRadius="30px"
+							width="160px"
+						>
+							Main
+						</Button>
+					)}
+					{hideBelajar && (
+						<Button
+							id="tombolBelajar"
+							onClick={belajarHandler}
+							bg={warnaBelajar}
+							borderRadius="30px"
+							width="160px"
+						>
+							Belajar
+						</Button>
+					)}
 					{/* <Button id="tombolMain" onClick={mainHandler}>
 							Main
 						</Button> */}
@@ -717,7 +901,12 @@ function GamePage() {
 						</Drawer>
 					</Flex>
 					<Link to="/">
-						<Button borderRadius="30px" width="150px" bg="#D0DCE5">
+						<Button
+							borderRadius="30px"
+							width="150px"
+							bg="#DD9A9A"
+							color="#C25050"
+						>
 							Logout
 						</Button>
 					</Link>
