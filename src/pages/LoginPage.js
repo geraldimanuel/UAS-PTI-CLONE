@@ -8,13 +8,19 @@ import {
 	Box,
 	Heading,
 	Image,
+	Text,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
+	useDisclosure,
 } from "@chakra-ui/react";
-import { ArrowDownIcon } from "@chakra-ui/icons";
-// import Avatar from "./Avatar";
 import ImageSlider from "../components/Carousel/ImageSlider";
 import { SliderData } from "../components/Carousel/SliderData";
 import { UserContext } from "../lib/UserContext";
-import UMN from "../Assets/pictures/Logos/UMN.png";
 
 function FormName() {
 	const { loginData, setLoginData } = useContext(UserContext);
@@ -39,6 +45,125 @@ function FormName() {
 			width="290px"
 			textAlign={["center"]}
 		/>
+	);
+}
+
+function HowToPlayButton() {
+	const OverlayOne = () => (
+		<ModalOverlay
+			bg="blackAlpha.300"
+			backdropFilter="blur(10px) hue-rotate(90deg)"
+		/>
+	);
+
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [overlay, setOverlay] = React.useState(<OverlayOne />);
+
+	return (
+		<Box>
+			<Button
+				ml="4"
+				onClick={() => {
+					setOverlay(<OverlayOne />);
+					onOpen();
+				}}
+				bg="#D0DCE5"
+				borderRadius="30px"
+				border="1px solid"
+				borderColor="#000000"
+				// width="290px"
+				textAlign={["center"]}
+			>
+				Cara Bermain
+			</Button>
+			<Modal isCentered isOpen={isOpen} onClose={onClose}>
+				{overlay}
+				<ModalContent>
+					<ModalHeader>Cara Main: </ModalHeader>
+					<ModalCloseButton />
+					<ModalBody>
+						<Text>
+							1. Pada permainan 7 Days Maba ini, pemain memiliki 5 status bar
+							(Belajar, Sosial, Main, Makan, dan Tidur), dengan 3 status bar
+							diantaranya (Main, Makan, dan Tidur) harus dipertahankan agar
+							tidak mati (game selesai) sebelum 7 hari.
+						</Text>
+						<br />
+						<Text>
+							2. Pemain dapat menekan tombol "Makan" untuk menaikkan stats
+							"Makan", tombol "Main" untuk stats "Main" dan "Sosial", tombol
+							"Tidur" untuk stats "Ngantuk", dan tombol "Belajar" untuk stats
+							"Pengetahuan". Stats akan berkurang apabila tombol tidak ditekan
+							(idle).
+						</Text>
+						<br />
+						<Text>
+							3. Pemain dapat memilih Avatar sesuai keinginan, lalu masukkan
+							nama pemain dan juga pilihlah jurusan, setelah itu tekan tombol
+							"PLAY!"
+						</Text>
+						<br />
+						<Text>
+							4. Pemain dapat berpindah lokasi dengan menekan tombol "Pindah
+							Tempat". Terdapat beberapa lokasi permainan, yaitu Home, Kampus,
+							Cafe, dan Supermarket
+						</Text>
+						<br />
+					</ModalBody>
+					<ModalFooter>
+						<Button onClick={onClose}>Close</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
+		</Box>
+	);
+}
+
+function AboutButton() {
+	const OverlayOne = () => (
+		<ModalOverlay
+			bg="blackAlpha.300"
+			backdropFilter="blur(10px) hue-rotate(90deg)"
+		/>
+	);
+
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [overlay, setOverlay] = React.useState(<OverlayOne />);
+
+	return (
+		<Box>
+			<Button
+				onClick={() => {
+					setOverlay(<OverlayOne />);
+					onOpen();
+				}}
+				bg="#D0DCE5"
+				borderRadius="30px"
+				border="1px solid"
+				borderColor="#000000"
+				// width="290px"
+				textAlign={["center"]}
+			>
+				Tentang Kami
+			</Button>
+
+			<Modal isCentered isOpen={isOpen} onClose={onClose}>
+				{overlay}
+				<ModalContent>
+					<ModalHeader>Kelompok 3</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody>
+						<Text>Gerald Imanuel Wijaya (00000060106)</Text>
+						<Text>Ikbar Muhammad Mumtaz (00000061296)</Text>
+						<Text>Michael Danda Pratama (00000055630)</Text>
+						<Text>Steven Arya Setyadharma T.C (00000055610)</Text>
+					</ModalBody>
+					<ModalFooter>
+						<Button onClick={onClose}>Close</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
+		</Box>
 	);
 }
 
@@ -91,6 +216,7 @@ function LoginPage() {
 			bgColor="#0B66AE"
 			gap="15px"
 			height="100vh"
+			objectFit="contain"
 		>
 			<Flex
 				className="kotak-kecil"
@@ -100,8 +226,8 @@ function LoginPage() {
 				alignItems="center"
 				justifyContent="center"
 				flexDirection={{ base: "column", md: "row" }}
-				px="80px"
-				py="80px"
+				px="70px"
+				py="70px"
 			>
 				<Flex alignItems="center" justifyContent="center">
 					<Box className="carousel">
@@ -135,6 +261,15 @@ function LoginPage() {
 							</Button>
 						</Link>
 					</Box>
+					<Flex
+						className="introButton"
+						// flexDirection="column"
+						justifyContent="center"
+						alignItems="center"
+					>
+						<AboutButton />
+						<HowToPlayButton />
+					</Flex>
 				</Flex>
 			</Flex>
 

@@ -29,15 +29,27 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../lib/UserContext";
 import { Icon } from "@iconify/react";
 
+//IMPORT GAMBAR
+import default_1 from "../Assets/pictures/avatar/avatar_1/default_1.png";
+import default_2 from "../Assets/pictures/avatar/avatar_2/default_2.png";
+import default_3 from "../Assets/pictures/avatar/avatar_3/default_3.png";
+import default_4 from "../Assets/pictures/avatar/avatar_4/default_4.png";
+import default_5 from "../Assets/pictures/avatar/avatar_5/default_5.png";
+
 function GamePage() {
 	// USE CONTEXT
 	const { loginData, setLoginData } = useContext(UserContext);
+	const { current, setCurrent } = useContext(UserContext);
 
 	// DECLARE UPDATE WEATHER
 	const [data, setData] = useState({});
 	const [location, setLocation] = useState("");
 	const url = `https://api.openweathermap.org/data/2.5/weather?lat=-6.261180
 	&lon=106.616820&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`;
+
+	// DECLARE UNTUK KEPERLUAN PASS AVATAR
+	const [avatar, setAvatar] = useState();
+	let imageURL = "";
 
 	// DECLARE BUKA TUTUP DRAWER
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -298,7 +310,7 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
 			setstatusMain((prevCounter) => prevCounter - 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.1);
-			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
+			setstatusBelajar((prevCounter) => prevCounter + 0.8); //ini naik
 			setWarnaKampus("#8FC3EE");
 			setWarnaCafe("#D0DCE5");
 			setWarnaHome("#D0DCE5");
@@ -459,6 +471,32 @@ function GamePage() {
 		}
 	};
 
+	//FUNCTION PASS AVATAR
+
+	function choosenAvatar() {
+		if (current === 0 && button === "") {
+			setAvatar(
+				"https://cdn.discordapp.com/attachments/981553514398515211/981553589195534417/1.png"
+			);
+		} else if (current === 1) {
+			setAvatar(
+				"https://cdn.discordapp.com/attachments/981553514398515211/981553586695716945/2.png"
+			);
+		} else if (current === 2) {
+			setAvatar(
+				"https://cdn.discordapp.com/attachments/981553514398515211/981553587299708998/3.png"
+			);
+		} else if (current === 3) {
+			setAvatar(
+				"https://cdn.discordapp.com/attachments/981553514398515211/981553587815604224/4.png"
+			);
+		} else if (current === 4) {
+			setAvatar(
+				"https://cdn.discordapp.com/attachments/981553514398515211/981553588646060142/5.png"
+			);
+		}
+	}
+
 	//WEATHER FUNCTION
 	const searchLocation = (event) => {
 		axios.get(url).then((response) => {
@@ -473,20 +511,26 @@ function GamePage() {
 		const interval = setInterval(() => {
 			updateStatus(button, where);
 			// searchLocation();
-			AlertMakan();
+			// AlertMakan();
 			// AlertTidur();
 			// AlertBelajar();
 			// AlertSosial();
 			// AlertMain();
-		}, 100);
+		}, 1000);
 		return () => clearInterval(interval);
 	});
 
-	//FUNCTION ALERT MAKAN
+	useEffect(() => {
+		const interval = setInterval(() => {
+			choosenAvatar();
+		}, 1);
+		return () => clearInterval(interval);
+	});
+
+	// FUNCTION ALERT MAKAN
 	function AlertMakan() {
 		if (statusMakan <= 25 && statusMakan >= 24.8) {
 			alert("Anda kelaparan segeralah makan!");
-			<Link to="/" />;
 		}
 	}
 
@@ -522,6 +566,14 @@ function GamePage() {
 
 		if (isClickedHome) {
 			setWhere("rumah");
+			setWarnaHome("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(true);
+			setHideMakan(true);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else {
 			setWhere("");
 		}
@@ -536,6 +588,12 @@ function GamePage() {
 
 		if (isClickedKampus) {
 			setWhere("kampus");
+			setWarnaKampus("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(false);
 		} else {
 			setWhere("");
 		}
@@ -550,6 +608,13 @@ function GamePage() {
 
 		if (isClickedCafe) {
 			setWhere("cafe");
+			setWarnaCafe("#8FC3EE");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setWarnaSupermarket("#D0DCE5");
+			setHideSleep(false);
+			setHideMain(true);
+			setHideBelajar(true);
 		} else {
 			setWhere("");
 		}
@@ -564,6 +629,12 @@ function GamePage() {
 
 		if (isClickedSupermarket) {
 			setWhere("supermarket");
+			setWarnaSupermarket("#8FC3EE");
+			setWarnaCafe("#D0DCE5");
+			setWarnaKampus("#D0DCE5");
+			setWarnaHome("#D0DCE5");
+			setHideSleep(false);
+			setHideBelajar(false);
 		} else {
 			setWhere("");
 		}
@@ -614,6 +685,9 @@ function GamePage() {
 		if (isClickedBelajar) {
 			setButton("belajar");
 			setWarnaBelajar("#8FC3EE");
+			setAvatar(
+				"https://cdn.discordapp.com/attachments/981553514398515211/981569606772736000/Untitled_design_1.png"
+			);
 		} else {
 			setButton("");
 			setWarnaBelajar("#D0DCE5");
@@ -638,72 +712,125 @@ function GamePage() {
 		setIsClickedMain(!isClickedMain);
 	}
 
-	return (
-		<Flex
-			// bgImage={umn}
-			// bgSize="1700px"
-			// bgPosition="center"
-			// h="100vh"
-			// bgRepeat="no-repeat"
-			// justifyContent="center"
-			alignItems="center"
-			p="30px"
-			flexDirection={{ base: "column", md: "row" }}
-			height="100vh"
-		>
-			<Box className="avatarGame">
-				<Image
-					src="https://cdn.discordapp.com/attachments/979290524680847370/980097903785816074/Untitled_design.png"
-					objectFit="cover"
-					boxSize="400px"
-				></Image>
-			</Box>
-			<Flex
-				className="interface"
-				width="400px"
-				gap="20px"
-				flexDirection="column"
-			>
-				<Box
-					className="greetings-weather"
-					bg="#EAF0F6"
-					p="20px"
-					borderRadius="30px"
+	function GamePause() {
+		const { isOpen, onOpen, onClose } = useDisclosure();
+		const cancelRef = React.useRef();
+
+		return (
+			<>
+				<Button onClick={onOpen}>Discard</Button>
+				<AlertDialog
+					motionPreset="slideInBottom"
+					leastDestructiveRef={cancelRef}
+					onClose={onClose}
+					isOpen={isOpen}
+					isCentered
 				>
-					<Heading size="lg">Good Morning!</Heading>
-					{data.weather ? (
-						<Heading size="md" color="#0B66AE">
-							{data.weather[0].main} {data.main.temp.toFixed()}°F
-						</Heading>
-					) : null}
-					<Text fontSize="md">{loginData.nama}</Text>
-					<Text fontSize="sm" as="i">
-						{loginData.jurusan}
-					</Text>
-					<Box></Box>
+					<AlertDialogOverlay />
+
+					<AlertDialogContent>
+						<AlertDialogHeader>Game Paused</AlertDialogHeader>
+						<AlertDialogCloseButton />
+						<AlertDialogBody>Do you want to restart your?</AlertDialogBody>
+						<AlertDialogFooter>
+							<Button ref={cancelRef} onClick={onClose}>
+								No
+							</Button>
+							<Button colorScheme="red" ml={3}>
+								Yes
+							</Button>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialog>
+			</>
+		);
+	}
+
+	return (
+		<Box
+		// bgImage={umn}
+		// bgSize="1700px"
+		// bgPosition="center"
+		// h="100vh"
+		// bgRepeat="no-repeat"
+		// justifyContent="center"
+		// alignItems="center"
+		// p="30px"
+		// flexDirection={{ base: "column", md: "row" }}
+		// height="100vh"
+		>
+			<Flex
+				height="40px"
+				bgColor="#EFF4F8"
+				alignItems="center"
+				px="10px"
+				justifyContent="space-between"
+			>
+				<Heading size="md">09.43</Heading>
+				<Heading size="sm">Friday, 7 January 2022</Heading>
+			</Flex>
+			<Flex
+				alignItems="center"
+				px="30px"
+				flexDirection={{ base: "column", md: "row" }}
+				height="100vh"
+				justifyContent="space-around"
+				// marginTop="-40px"
+			>
+				<Box className="avatarGame">
+					<Image
+						src={avatar}
+						objectFit="cover"
+						boxSize={{ md: "500px", base: "300px" }}
+						py="20px"
+					></Image>
 				</Box>
 				<Flex
-					className="progress-bar"
-					bg="#EAF0F6"
-					p="30px"
-					borderRadius="30px"
+					className="interface"
+					width="400px"
+					gap="15px"
 					flexDirection="column"
-					gap={4}
+					marginBottom="10px"
 				>
-					<Flex className="study-bar" alignItems="center" gap="5px">
-						<Icon icon="fa-solid:book-reader" color="#0b66ae" width="25px" />
-						<Progress
-							value={statusBelajar}
-							height="25px"
-							aria-valuemin={0}
-							aria-valuemax={100}
-							bg="white"
-							borderRadius="30px"
-							icon="fa-solid:book-reader"
-							w="full"
-						/>
-					</Flex>
-					<Flex className="main-bar" gap={2} flexDirection="column" pe="150px">
+					<Box
+						className="greetings-weather"
+						bg="#EAF0F6"
+						p="20px"
+						borderRadius="30px"
+					>
+						<Heading size="lg">Good Morning!</Heading>
+						{data.weather ? (
+							<Heading size="md" color="#0B66AE">
+								{data.weather[0].main} {data.main.temp.toFixed()}°F
+							</Heading>
+						) : null}
+						<Text fontSize="md">{loginData.nama}</Text>
+						<Text fontSize="sm" as="i">
+							{loginData.jurusan}
+						</Text>
+						<Box></Box>
+					</Box>
+					<Flex
+						className="progress-bar"
+						bg="#EAF0F6"
+						p="30px"
+						borderRadius="30px"
+						flexDirection="column"
+						gap={3}
+					>
+						<Flex alignItems="center" gap="5px">
+							<Icon icon="fa-solid:book-reader" color="#0b66ae" width="25px" />
+							<Progress
+								value={statusBelajar}
+								height="25px"
+								aria-valuemin={0}
+								aria-valuemax={100}
+								bg="white"
+								borderRadius="30px"
+								icon="fa-solid:book-reader"
+								w="full"
+							/>
+						</Flex>
 						<Flex alignItems="center" gap="5px">
 							<Icon
 								icon="icomoon-free:spoon-knife"
@@ -761,166 +888,176 @@ function GamePage() {
 								w="full"
 							/>
 						</Flex>
+						{/* <Flex className="bungkus-bar-pause">
+							<Flex className="main-bar" gap={2} flexDirection="column"></Flex>
+							<Flex alignItems="center">
+								<Icon
+									icon="bi:pause-circle-fill"
+									width="50px"
+									color="#0b66ae"
+								/>
+							</Flex>
+						</Flex> */}
 					</Flex>
-				</Flex>
-				<Flex
-					className="activity-button-group"
-					bg="#EAF0F6"
-					borderRadius="30px"
-					p="20px"
-					flexDirection="row"
-					flexWrap="wrap"
-					gap="15px"
-					justifyContent="center"
-				>
-					{hideSleep && (
-						<Button
-							id="tombolSleep"
-							onClick={sleepHandler}
-							bg={warnaSleep}
-							borderRadius="30px"
-							width="160px"
-						>
-							Sleep
-						</Button>
-					)}
-					{hideMakan && (
-						<Button
-							id="tombolEat"
-							onClick={eatHandler}
-							bg={warnaMakan}
-							borderRadius="30px"
-							width="160px"
-						>
-							Eat
-						</Button>
-					)}
-					{hideMain && (
-						<Button
-							id="tombolMain"
-							onClick={mainHandler}
-							bg={warnaMain}
-							borderRadius="30px"
-							width="160px"
-						>
-							Main
-						</Button>
-					)}
-					{hideBelajar && (
-						<Button
-							id="tombolBelajar"
-							onClick={belajarHandler}
-							bg={warnaBelajar}
-							borderRadius="30px"
-							width="160px"
-						>
-							Belajar
-						</Button>
-					)}
-					{/* <Button id="tombolMain" onClick={mainHandler}>
+					<Flex
+						className="activity-button-group"
+						bg="#EAF0F6"
+						borderRadius="30px"
+						p="20px"
+						flexDirection="row"
+						flexWrap="wrap"
+						gap="15px"
+						justifyContent="center"
+					>
+						{hideSleep && (
+							<Button
+								id="tombolSleep"
+								onClick={sleepHandler}
+								bg={warnaSleep}
+								borderRadius="30px"
+								width="160px"
+							>
+								Sleep
+							</Button>
+						)}
+						{hideMakan && (
+							<Button
+								id="tombolEat"
+								onClick={eatHandler}
+								bg={warnaMakan}
+								borderRadius="30px"
+								width="160px"
+							>
+								Eat
+							</Button>
+						)}
+						{hideMain && (
+							<Button
+								id="tombolMain"
+								onClick={mainHandler}
+								bg={warnaMain}
+								borderRadius="30px"
+								width="160px"
+							>
+								Main
+							</Button>
+						)}
+						{hideBelajar && (
+							<Button
+								id="tombolBelajar"
+								onClick={belajarHandler}
+								bg={warnaBelajar}
+								borderRadius="30px"
+								width="160px"
+							>
+								Belajar
+							</Button>
+						)}
+						{/* <Button id="tombolMain" onClick={mainHandler}>
 							Main
 						</Button> */}
-				</Flex>
-				<Flex
-					bg="#EAF0F6"
-					borderRadius="30px"
-					p="20px"
-					flexDirection="row"
-					flexWrap="wrap"
-					gap="15px"
-					justifyContent="center"
-				>
-					<Flex>
-						<Button
-							ref={btnRef}
-							bg="#D0DCE5"
-							borderRadius="30px"
-							width="150px"
-							onClick={onOpen}
-						>
-							Pindah tempat
-						</Button>
-						<Drawer
-							isOpen={isOpen}
-							placement="right"
-							onClose={onClose}
-							finalFocusRef={btnRef}
-						>
-							<DrawerOverlay />
-							<DrawerContent>
-								<DrawerCloseButton />
-								<DrawerHeader>Mau pergi kemana?</DrawerHeader>
-
-								<DrawerBody>
-									<Flex
-										flexDirection="column"
-										gap="10px"
-										justifyContent="center"
-										alignItems="center"
-									>
-										<Button
-											bg={warnaHome}
-											borderRadius="30px"
-											width="160px"
-											onClick={toggleHouse}
-										>
-											Home
-										</Button>
-										<Button
-											bg={warnaKampus}
-											borderRadius="30px"
-											width="160px"
-											onClick={toggleKampus}
-										>
-											Kampus
-										</Button>
-										<Button
-											bg={warnaCafe}
-											borderRadius="30px"
-											width="160px"
-											onClick={toggleCafe}
-										>
-											Cafe
-										</Button>
-										<Button
-											bg={warnaSupermarket}
-											borderRadius="30px"
-											width="160px"
-											onClick={toggleSupermarket}
-										>
-											Supermarket
-										</Button>
-									</Flex>
-								</DrawerBody>
-
-								<DrawerFooter>
-									<Button
-										variant="outline"
-										mr={3}
-										onClick={onClose}
-										bg="#D0DCE5"
-										borderRadius="30px"
-										width="100px"
-									>
-										Cancel
-									</Button>
-								</DrawerFooter>
-							</DrawerContent>
-						</Drawer>
 					</Flex>
-					<Link to="/">
-						<Button
-							borderRadius="30px"
-							width="150px"
-							bg="#DD9A9A"
-							color="#C25050"
-						>
-							Logout
-						</Button>
-					</Link>
+					<Flex
+						bg="#EAF0F6"
+						borderRadius="30px"
+						p="20px"
+						flexDirection="row"
+						flexWrap="wrap"
+						gap="15px"
+						justifyContent="center"
+					>
+						<Flex>
+							<Button
+								ref={btnRef}
+								bg="#D0DCE5"
+								borderRadius="30px"
+								width="150px"
+								onClick={onOpen}
+							>
+								Pindah tempat
+							</Button>
+							<Drawer
+								isOpen={isOpen}
+								placement="right"
+								onClose={onClose}
+								finalFocusRef={btnRef}
+							>
+								<DrawerOverlay />
+								<DrawerContent>
+									<DrawerCloseButton />
+									<DrawerHeader>Mau pergi kemana?</DrawerHeader>
+
+									<DrawerBody>
+										<Flex
+											flexDirection="column"
+											gap="10px"
+											justifyContent="center"
+											alignItems="center"
+										>
+											<Button
+												bg={warnaHome}
+												borderRadius="30px"
+												width="160px"
+												onClick={toggleHouse}
+											>
+												Home
+											</Button>
+											<Button
+												bg={warnaKampus}
+												borderRadius="30px"
+												width="160px"
+												onClick={toggleKampus}
+											>
+												Kampus
+											</Button>
+											<Button
+												bg={warnaCafe}
+												borderRadius="30px"
+												width="160px"
+												onClick={toggleCafe}
+											>
+												Cafe
+											</Button>
+											<Button
+												bg={warnaSupermarket}
+												borderRadius="30px"
+												width="160px"
+												onClick={toggleSupermarket}
+											>
+												Supermarket
+											</Button>
+										</Flex>
+									</DrawerBody>
+
+									<DrawerFooter>
+										<Button
+											variant="outline"
+											mr={3}
+											onClick={onClose}
+											bg="#D0DCE5"
+											borderRadius="30px"
+											width="100px"
+										>
+											Cancel
+										</Button>
+									</DrawerFooter>
+								</DrawerContent>
+							</Drawer>
+						</Flex>
+						<Link to="/">
+							<Button
+								borderRadius="30px"
+								width="150px"
+								bg="#DD9A9A"
+								color="#C25050"
+							>
+								Logout
+							</Button>
+						</Link>
+					</Flex>
 				</Flex>
 			</Flex>
-		</Flex>
+		</Box>
 	);
 }
 

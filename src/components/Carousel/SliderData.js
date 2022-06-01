@@ -1,22 +1,27 @@
+import default_1 from "../../Assets/pictures/avatar/avatar_1/default_1.png";
+import default_2 from "../../Assets/pictures/avatar/avatar_2/default_2.png";
+import default_3 from "../../Assets/pictures/avatar/avatar_3/default_3.png";
+import default_4 from "../../Assets/pictures/avatar/avatar_4/default_4.png";
+import default_5 from "../../Assets/pictures/avatar/avatar_5/default_5.png";
+
 export const SliderData = [
 	{
-		image:
-			"https://images.unsplash.com/photo-1546768292-fb12f6c92568?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+		image: default_1,
+		value: "0",
 	},
 	{
-		image:
-			"https://images.unsplash.com/photo-1501446529957-6226bd447c46?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1489&q=80",
+		image: default_2,
+		value: "1",
 	},
 	{
-		image:
-			"https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80",
+		image: default_3,
 	},
 	{
-		image:
-			"https://images.unsplash.com/photo-1475189778702-5ec9941484ae?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1351&q=80",
+		image: default_4,
+		value: "3",
 	},
 	{
-		image:
-			"https://media.discordapp.net/attachments/979227227952664640/979715503281020948/steve_valo.png?width=901&height=676",
+		image: default_5,
+		value: "4",
 	},
 ];
