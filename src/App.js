@@ -5,6 +5,7 @@ import GamePage from "./pages/GamePage";
 import LoginPage from "./pages/LoginPage";
 import ImageSlider from "components/Carousel/ImageSlider";
 import { UserContext } from "./lib/UserContext";
+import Jam from "../src/components/Jam/Jam";
 
 function App() {
 	const [loginData, setLoginData] = useState({
@@ -14,15 +15,29 @@ function App() {
 
 	const [current, setCurrent] = useState(0);
 
+	const [waktu, setWaktu] = useState("");
+
+	const [increment, setIncrement] = useState(0);
+
 	return (
 		<BrowserRouter>
 			<UserContext.Provider
-				value={{ loginData, setLoginData, current, setCurrent }}
+				value={{
+					loginData,
+					setLoginData,
+					current,
+					setCurrent,
+					waktu,
+					setWaktu,
+					increment,
+					setIncrement,
+				}}
 			>
 				<Routes>
 					<Route path="/" element={<LoginPage />} />
 					<Route path="/GamePage" element={<GamePage />} />
 					<Route path="/ImageSlider" element={<ImageSlider />} />
+					<Route path="/Jam" element={<Jam />} />
 				</Routes>
 			</UserContext.Provider>
 		</BrowserRouter>

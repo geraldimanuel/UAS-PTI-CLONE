@@ -28,6 +28,9 @@ import {
 import { Link } from "react-router-dom";
 import { UserContext } from "../lib/UserContext";
 import { Icon } from "@iconify/react";
+import Jam from "../components/Jam/Jam";
+import News from "../components/News/News";
+import Pause from "../components/Pause/Pause";
 
 //IMPORT GAMBAR
 import default_1 from "../Assets/pictures/avatar/avatar_1/default_1.png";
@@ -40,16 +43,24 @@ function GamePage() {
 	// USE CONTEXT
 	const { loginData, setLoginData } = useContext(UserContext);
 	const { current, setCurrent } = useContext(UserContext);
+	const { waktu, setWaktu } = useContext(UserContext);
+	const { increment, setIncrement } = useContext(UserContext);
 
+	const [count, setCount] = useState("TIME");
 	// DECLARE UPDATE WEATHER
 	const [data, setData] = useState({});
 	const [location, setLocation] = useState("");
 	const url = `https://api.openweathermap.org/data/2.5/weather?lat=-6.261180
 	&lon=106.616820&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`;
 
-	// DECLARE UNTUK KEPERLUAN PASS AVATAR
+	// DECLAR UNTUK GANTI BACKGROUND
+	const [background, setBackground] = useState("");
+
+	// DECLARE SALAM
+	const [salam, setSalam] = useState("");
+
+	// DECLARE UNTUK KEPERLUAN PASSING AVATAR
 	const [avatar, setAvatar] = useState();
-	let imageURL = "";
 
 	// DECLARE BUKA TUTUP DRAWER
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -83,7 +94,6 @@ function GamePage() {
 	const [hideBelajar, setHideBelajar] = useState(true);
 
 	// UNTUK CEK TOMBOL TEMPAT APA YANG SEDANG DITEKAN
-
 	const [isClickedHome, setIsClickedHome] = useState(true);
 	const [isClickedKampus, setIsClickedKampus] = useState(true);
 	const [isClickedCafe, setIsClickedCafe] = useState(true);
@@ -274,28 +284,23 @@ function GamePage() {
 
 	//FUNCTION PASS AVATAR
 
-	function choosenAvatar() {
+	useEffect(() => {
 		if (current === 0 && button === "") {
-			setAvatar(
-				"https://cdn.discordapp.com/attachments/981553514398515211/981553589195534417/1.png"
-			);
+			setAvatar(default_1);
 		} else if (current === 1) {
-			setAvatar(
-				"https://cdn.discordapp.com/attachments/981553514398515211/981553586695716945/2.png"
-			);
+			setAvatar(default_2);
 		} else if (current === 2) {
-			setAvatar(
-				"https://cdn.discordapp.com/attachments/981553514398515211/981553587299708998/3.png"
-			);
+			setAvatar(default_3);
 		} else if (current === 3) {
-			setAvatar(
-				"https://cdn.discordapp.com/attachments/981553514398515211/981553587815604224/4.png"
-			);
+			setAvatar(default_4);
 		} else if (current === 4) {
-			setAvatar(
-				"https://cdn.discordapp.com/attachments/981553514398515211/981553588646060142/5.png"
-			);
+			setAvatar(default_5);
 		}
+	}, []);
+
+	function date() {
+		let time = new Date().toLocaleTimeString();
+		setCount(time);
 	}
 
 	//WEATHER FUNCTION
@@ -311,20 +316,29 @@ function GamePage() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			updateStatus(button, where);
-			// searchLocation();
+			IsiSalam();
 			// AlertMakan();
 			// AlertTidur();
 			// AlertBelajar();
 			// AlertSosial();
 			// AlertMain();
+			// changeBackground();
+			CheckIncrements();
 		}, 1000);
+		date();
 		return () => clearInterval(interval);
 	});
 
 	useEffect(() => {
+		// searchLocation();
+	}, []);
+
+	// useEffect UNTUK UPDATE CUACA TIAP 5 MENIT
+	useEffect(() => {
 		const interval = setInterval(() => {
-			choosenAvatar();
-		}, 1);
+			// searchLocation();
+		}, 300000);
+
 		return () => clearInterval(interval);
 	});
 
@@ -355,6 +369,266 @@ function GamePage() {
 	function AlertTidur() {
 		if (statusTuru <= 25) {
 			alert("Anda kurang istirahat segeralah tidur!");
+		}
+	}
+
+	function CheckIncrements() {
+		if (increment === 7) {
+			alert("selamat!");
+		}
+	}
+	// FUNCTION UNTUK GANTI BACKGROUND
+	// function changeBackground() {
+	// 	//SET BACKGROUND DEFAULT (RUMAH)
+	// 	if (
+	// 		where === "" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_1);
+	// 	} else if (
+	// 		where === "" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_2);
+	// 	} else if (
+	// 		where === "" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_3);
+	// 	} else if (
+	// 		where === "" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_4);
+	// 	} else if (
+	// 		where === "" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_5);
+	// 	} else if (
+	// 		where === "" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_6);
+	// 	} else if (
+	// 		where === "" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_7);
+	// 	} else if (
+	// 		where === "" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_8);
+	// 	}
+
+	// 	//SET BACKGROUND RUMAH
+	// 	else if (
+	// 		where === "rumah" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_1);
+	// 	} else if (
+	// 		where === "rumah" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_2);
+	// 	} else if (
+	// 		where === "rumah" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_3);
+	// 	} else if (
+	// 		where === "rumah" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_4);
+	// 	} else if (
+	// 		where === "rumah" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_5);
+	// 	} else if (
+	// 		where === "rumah" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_6);
+	// 	} else if (
+	// 		where === "rumah" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_7);
+	// 	} else if (
+	// 		where === "rumah" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_8);
+	// 	}
+
+	// 	// SET BACKGROUND KAMPUS
+	// 	else if (
+	// 		where === "kampus" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_9);
+	// 	} else if (
+	// 		where === "kampus" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_10);
+	// 	} else if (
+	// 		where === "kampus" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_11);
+	// 	} else if (
+	// 		where === "kampus" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_12);
+	// 	} else if (
+	// 		where === "kampus" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_13);
+	// 	} else if (
+	// 		where === "kampus" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_14);
+	// 	} else if (
+	// 		where === "kampus" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 		// setBackground(background_15);
+	// 	} else if (
+	// 		where === "kampus" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 		// setBackground(background_16);
+	// 	}
+
+	// 	// SET BACKGROUND CAFE
+	// 	else if (
+	// 		where === "cafe" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 	} else if (
+	// 		where === "cafe" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 	} else if (
+	// 		where === "cafe" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 	} else if (
+	// 		where === "cafe" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 	} else if (
+	// 		where === "cafe" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 	} else if (
+	// 		where === "cafe" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 	} else if (
+	// 		where === "cafe" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 	} else if (
+	// 		where === "cafe" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 	}
+
+	// 	// SET BACKGROUND SUPERMARKET
+	// 	else if (
+	// 		where === "supermarket" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 	} else if (
+	// 		where === "supermarket" &&
+	// 		waktu === "Pagi" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 	} else if (
+	// 		where === "supermarket" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 	} else if (
+	// 		where === "supermarket" &&
+	// 		waktu === "Siang" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 	} else if (
+	// 		where === "supermarket" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 	} else if (
+	// 		where === "supermarket" &&
+	// 		waktu === "Sore" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 	} else if (
+	// 		where === "supermarket" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Clear" || "Clouds")
+	// 	) {
+	// 	} else if (
+	// 		where === "supermarket" &&
+	// 		waktu === "Malam" &&
+	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
+	// 	) {
+	// 	}
+	// }
+
+	// FUNCTION UNTUK KASIH SALAM
+	function IsiSalam() {
+		if (waktu === "Malam") {
+			setSalam("Good Night");
+		} else if (waktu === "Pagi") {
+			setSalam("Good Morning");
+		} else if (waktu === "Siang") {
+			setSalam("Good Afternoon");
+		} else if (waktu === "Sore") {
+			setSalam("Good Evening");
 		}
 	}
 
@@ -527,27 +801,31 @@ function GamePage() {
 
 	return (
 		<Box
-		// bgImage={umn}
-		// bgSize="1700px"
-		// bgPosition="center"
-		// h="100vh"
-		// bgRepeat="no-repeat"
-		// justifyContent="center"
-		// alignItems="center"
-		// p="30px"
-		// flexDirection={{ base: "column", md: "row" }}
-		// height="100vh"
+			// bgImage={umn}
+			// bgSize="1700px"
+			// bgPosition="center"
+			// h="100vh"
+			// bgRepeat="no-repeat"
+			// justifyContent="center"
+			// alignItems="center"
+			// p="30px"
+			// flexDirection={{ base: "column", md: "row" }}
+			// height="100vh"
+			bgImage={background}
+			backgroundRepeat="no-repeat"
+			backgroundSize="cover"
 		>
-			<Flex
+			{/* <Flex
 				height="40px"
 				bgColor="#EFF4F8"
 				alignItems="center"
 				px="10px"
 				justifyContent="space-between"
 			>
-				<Heading size="md">09.43</Heading>
-				<Heading size="sm">Friday, 7 January 2022</Heading>
-			</Flex>
+				<Heading size="md">09.45</Heading>
+				<Heading size="sm">{count}</Heading>
+			</Flex> */}
+			<Jam />
 			<Flex
 				alignItems="center"
 				px="30px"
@@ -577,17 +855,28 @@ function GamePage() {
 						p="20px"
 						borderRadius="30px"
 					>
-						<Heading size="lg">Good Morning!</Heading>
+						<Heading size="lg">{salam}</Heading>
+
 						{data.weather ? (
 							<Heading size="md" color="#0B66AE">
 								{data.weather[0].main} {data.main.temp.toFixed()}°F
 							</Heading>
 						) : null}
+
 						<Text fontSize="md">{loginData.nama}</Text>
 						<Text fontSize="sm" as="i">
 							{loginData.jurusan}
 						</Text>
-						<Box></Box>
+						{/* <Box>
+							{data.weather ? (
+								<Image
+									src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+									objectFit="cover"
+									boxSize={{ md: "100px", base: "50px" }}
+									py="20px"
+								></Image>
+							) : null}
+						</Box> */}
 					</Box>
 					<Flex
 						className="progress-bar"
@@ -732,10 +1021,8 @@ function GamePage() {
 								Belajar
 							</Button>
 						)}
-						{/* <Button id="tombolMain" onClick={mainHandler}>
-							Main
-						</Button> */}
 					</Flex>
+
 					<Flex
 						bg="#EAF0F6"
 						borderRadius="30px"
@@ -748,7 +1035,8 @@ function GamePage() {
 						<Flex>
 							<Button
 								ref={btnRef}
-								bg="#D0DCE5"
+								bg="#D6BCF8"
+								color="#AF8EDB"
 								borderRadius="30px"
 								width="150px"
 								onClick={onOpen}
@@ -833,6 +1121,8 @@ function GamePage() {
 								Logout
 							</Button>
 						</Link>
+						<News />
+						<Pause />
 					</Flex>
 				</Flex>
 			</Flex>
