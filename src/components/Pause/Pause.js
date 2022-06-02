@@ -33,11 +33,7 @@ function Pause() {
 			>
 				<AlertDialogOverlay>
 					<AlertDialogContent>
-						<AlertDialogHeader
-							fontSize="lg"
-							fontWeight="bold"
-							bgColor="#D0DCE5"
-						>
+						<AlertDialogHeader fontSize="lg" fontWeight="bold">
 							Paused
 						</AlertDialogHeader>
 

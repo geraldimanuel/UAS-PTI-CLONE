@@ -10,6 +10,7 @@ function Jam() {
 	// DECLARE VALUE BUAT TAU SKRG JAM BRP HARI APA
 	const { waktu, setWaktu } = useContext(UserContext);
 	const { increment, setIncrement } = useContext(UserContext);
+	const { noCampus, setNoCampus } = useContext(UserContext);
 
 	// FUNCTION UNTUK TAU SEKARANG JAM BERAPA
 	function JamSekarang() {
@@ -21,6 +22,16 @@ function Jam() {
 			setWaktu("Sore");
 		} else if (format(jam, "HH") >= "00" && format(jam, "HH") < "04") {
 			setWaktu("Malam");
+		}
+	}
+
+	function campusClosed() {
+		if (format(jam, "HH") >= "08" && format(jam, "HH") < "17") {
+			setNoCampus("Campus Open");
+		} else if (format(jam, "HH") >= "17" && format(jam, "HH") <= "24") {
+			setNoCampus("Campus Closed");
+		} else if (format(jam, "HH") >= "00" && format(jam, "HH") < "08") {
+			setNoCampus("Campus Closed");
 		}
 	}
 
@@ -41,6 +52,13 @@ function Jam() {
 			JamSekarang();
 			HariSekarang();
 		}, 1000);
+		return () => clearInterval(interval);
+	});
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			campusClosed();
+		}, 1);
 		return () => clearInterval(interval);
 	});
 

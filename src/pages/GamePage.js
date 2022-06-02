@@ -17,13 +17,6 @@ import {
 	DrawerContent,
 	DrawerCloseButton,
 	useDisclosure,
-	AlertDialog,
-	AlertDialogBody,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogContent,
-	AlertDialogOverlay,
-	AlertDialogCloseButton,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../lib/UserContext";
@@ -32,12 +25,58 @@ import Jam from "../components/Jam/Jam";
 import News from "../components/News/News";
 import Pause from "../components/Pause/Pause";
 
-//IMPORT GAMBAR
+//IMPORT GAMBAR AVATAR
 import default_1 from "../Assets/pictures/avatar/avatar_1/default_1.png";
 import default_2 from "../Assets/pictures/avatar/avatar_2/default_2.png";
 import default_3 from "../Assets/pictures/avatar/avatar_3/default_3.png";
 import default_4 from "../Assets/pictures/avatar/avatar_4/default_4.png";
 import default_5 from "../Assets/pictures/avatar/avatar_5/default_5.png";
+
+import makan_1 from "../Assets/pictures/avatar/avatar_1/makan_1.png";
+import makan_2 from "../Assets/pictures/avatar/avatar_2/makan_2.png";
+import makan_3 from "../Assets/pictures/avatar/avatar_3/makan_3.png";
+import makan_4 from "../Assets/pictures/avatar/avatar_4/makan_4.png";
+import makan_5 from "../Assets/pictures/avatar/avatar_5/makan_5.png";
+
+import main_1 from "../Assets/pictures/avatar/avatar_1/main_1.png";
+import main_2 from "../Assets/pictures/avatar/avatar_2/main_2.png";
+import main_3 from "../Assets/pictures/avatar/avatar_3/main_3.png";
+import main_4 from "../Assets/pictures/avatar/avatar_4/main_4.png";
+import main_5 from "../Assets/pictures/avatar/avatar_5/main_5.png";
+
+import belajar_1 from "../Assets/pictures/avatar/avatar_1/belajar_1.png";
+import belajar_2 from "../Assets/pictures/avatar/avatar_2/belajar_2.png";
+import belajar_3 from "../Assets/pictures/avatar/avatar_3/belajar_3.png";
+import belajar_4 from "../Assets/pictures/avatar/avatar_4/belajar_4.png";
+import belajar_5 from "../Assets/pictures/avatar/avatar_5/belajar_5.png";
+
+import tidur_1 from "../Assets/pictures/avatar/avatar_1/tidur_1.png";
+import tidur_2 from "../Assets/pictures/avatar/avatar_2/tidur_2.png";
+import tidur_3 from "../Assets/pictures/avatar/avatar_3/tidur_3.png";
+import tidur_4 from "../Assets/pictures/avatar/avatar_4/tidur_4.png";
+import tidur_5 from "../Assets/pictures/avatar/avatar_5/tidur_5.png";
+
+// IMPORT BACKGROUND
+import home_morning from "../Assets/pictures/places/home/home_morning.jpg";
+import home_afternoon from "../Assets/pictures/places/home/home_afternoon.jpg";
+import home_evening from "../Assets/pictures/places/home/home_evening.jpg";
+import home_night from "../Assets/pictures/places/home/home_night.jpg";
+
+import campus_morning from "../Assets/pictures/places/campus/campus_morning.jpg";
+import campus_afternoon from "../Assets/pictures/places/campus/campus_afternoon.jpg";
+import campus_evening from "../Assets/pictures/places/campus/campus_evening.jpg";
+import campus_night from "../Assets/pictures/places/campus/campus_night.jpg";
+
+import cafe_morning from "../Assets/pictures/places/cafe/cafe_morning.jpg";
+import cafe_afternoon from "../Assets/pictures/places/cafe/cafe_afternoon.jpg";
+import cafe_evening from "../Assets/pictures/places/cafe/cafe_evening.jpg";
+import cafe_night from "../Assets/pictures/places/cafe/cafe_night.jpg";
+
+import supermarket_morning from "../Assets/pictures/places/supermarket/supermarket_morning.jpg";
+import supermarket_afternoon from "../Assets/pictures/places/supermarket/supermarket_afternoon.jpg";
+import supermarket_evening from "../Assets/pictures/places/supermarket/supermarket_evening.jpg";
+import supermarket_night from "../Assets/pictures/places/supermarket/supermarket_night.jpg";
+import { hide } from "@popperjs/core";
 
 function GamePage() {
 	// USE CONTEXT
@@ -45,15 +84,24 @@ function GamePage() {
 	const { current, setCurrent } = useContext(UserContext);
 	const { waktu, setWaktu } = useContext(UserContext);
 	const { increment, setIncrement } = useContext(UserContext);
+	const { noCampus, setNoCampus } = useContext(UserContext);
 
-	const [count, setCount] = useState("TIME");
 	// DECLARE UPDATE WEATHER
 	const [data, setData] = useState({});
 	const [location, setLocation] = useState("");
 	const url = `https://api.openweathermap.org/data/2.5/weather?lat=-6.261180
 	&lon=106.616820&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`;
 
-	// DECLAR UNTUK GANTI BACKGROUND
+	// DECLARE UNTUK HITUNG JUMLAH BUTTON DISENTUH
+	const [incrementMakan, setIncrementMakan] = useState(0);
+	const [incrementTidur, setIncrementTidur] = useState(0);
+	const [incrementMain, setIncrementMain] = useState(0);
+	const [incrementBelajar, setIncrementBelajar] = useState(0);
+
+	// DECLARE UNTUK RUBAH ICON CUACA
+	const [icon, setIcon] = useState("");
+
+	// DECLARE UNTUK GANTI BACKGROUND
 	const [background, setBackground] = useState("");
 
 	// DECLARE SALAM
@@ -75,7 +123,6 @@ function GamePage() {
 	const [isClickedMakan, setIsClickedMakan] = useState(true);
 	const [isClickedMain, setIsClickedMain] = useState(true);
 	const [isClickedBelajar, setIsClickedBelajar] = useState(true);
-	const [isClickedSosial, setIsClickedSosial] = useState(true);
 
 	// UNTUK CEK TOMBOL YANG DITEKAN *biar berubah warna*
 	const [warnaSleep, setWarnaSleep] = useState("#D0DCE5");
@@ -93,6 +140,9 @@ function GamePage() {
 	const [hideMain, setHideMain] = useState(true);
 	const [hideBelajar, setHideBelajar] = useState(true);
 
+	// BUKA KAMPUS JAM >= 8 && 17 <= JAM
+	const [hideKampus, setHideKampus] = useState(true);
+
 	// UNTUK CEK TOMBOL TEMPAT APA YANG SEDANG DITEKAN
 	const [isClickedHome, setIsClickedHome] = useState(true);
 	const [isClickedKampus, setIsClickedKampus] = useState(true);
@@ -105,6 +155,25 @@ function GamePage() {
 	const [statusTuru, setstatusTuru] = useState(50);
 	const [statusSosial, setstatusSosial] = useState(50);
 	const [statusBelajar, setstatusBelajar] = useState(0);
+
+	// FUNCTION UNTUK LIMIT STATUS
+	function limitStatus(value, recursive, statsRate, movement) {
+		if (movement === "naik" && value + statsRate <= 100) {
+			recursive((prevValue) => prevValue + statsRate);
+			return;
+		} else if (movement === "turun" && value - statsRate >= 0) {
+			recursive((prevValue) => prevValue - statsRate);
+			return;
+		} else {
+			recursive(
+				value + statsRate < 0
+					? 0
+					: value + statsRate > 100
+					? 100
+					: value + statsRate
+			);
+		}
+	}
 
 	// FUNCTION UPDATE STATUS + UPDATE TOMBOL + HIDE TOMBOL SESUAI LOKASI DAN STATUS
 	const updateStatus = (status, tempat) => {
@@ -126,12 +195,6 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
 			setstatusMain((prevCounter) => prevCounter - 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.1);
-			setWarnaHome("#8FC3EE");
-		} else if (status === "sosial" && tempat === "") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter + 0.3); //ini naik
 			setWarnaHome("#8FC3EE");
 		} else if (status === "belajar" && tempat === "") {
 			setstatusMakan((prevCounter) => prevCounter - 0.4);
@@ -163,13 +226,6 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
 			setstatusMain((prevCounter) => prevCounter - 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.1);
-
-			setHideBelajar(true);
-		} else if (status === "sosial" && tempat === "rumah") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter + 0.3); //ini naik
 		} else if (status === "belajar" && tempat === "rumah") {
 			setstatusMakan((prevCounter) => prevCounter - 0.4);
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
@@ -198,11 +254,6 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
 			setstatusMain((prevCounter) => prevCounter - 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.1);
-		} else if (status === "sosial" && tempat === "kampus") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter + 0.3); //ini naik
 		} else if (status === "belajar" && tempat === "kampus") {
 			setstatusMakan((prevCounter) => prevCounter - 0.4);
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
@@ -230,11 +281,6 @@ function GamePage() {
 			setstatusMakan((prevCounter) => prevCounter + 0.8); // ini naik
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
 			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
-		} else if (status === "sosial" && tempat === "cafe") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
 			setstatusSosial((prevCounter) => prevCounter - 0.1);
 		} else if (status === "belajar" && tempat === "cafe") {
 			setstatusMakan((prevCounter) => prevCounter - 0.4);
@@ -264,11 +310,6 @@ function GamePage() {
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
 			setstatusMain((prevCounter) => prevCounter - 0.2);
 			setstatusSosial((prevCounter) => prevCounter - 0.1);
-		} else if (status === "sosial" && tempat === "supermarket") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
 		} else if (status === "belajar" && tempat === "supermarket") {
 			setstatusMakan((prevCounter) => prevCounter - 0.4);
 			setstatusTuru((prevCounter) => prevCounter - 0.2);
@@ -283,9 +324,8 @@ function GamePage() {
 	};
 
 	//FUNCTION PASS AVATAR
-
-	useEffect(() => {
-		if (current === 0 && button === "") {
+	function passAvatar() {
+		if (current === 0) {
 			setAvatar(default_1);
 		} else if (current === 1) {
 			setAvatar(default_2);
@@ -296,11 +336,6 @@ function GamePage() {
 		} else if (current === 4) {
 			setAvatar(default_5);
 		}
-	}, []);
-
-	function date() {
-		let time = new Date().toLocaleTimeString();
-		setCount(time);
 	}
 
 	//WEATHER FUNCTION
@@ -312,31 +347,77 @@ function GamePage() {
 		setLocation("");
 	};
 
+	// FUNCTION UNTUK GANTI ICON SESUAI CUACA
+	function WeatherIcon() {
+		if (data.weather[0].main === "Clear") {
+			setIcon("ic:round-wb-sunny");
+		} else if (data.weather[0].main === "Clouds") {
+			setIcon("bi:clouds-fill");
+		} else if (data.weather[0].main === "Rain") {
+			setIcon("bi:cloud-lightning-rain-fill");
+		} else if (data.weather[0].main === "Thunderstorm") {
+			setIcon("ri:thunderstorms-fill");
+		} else if (data.weather[0].main === "Drizzle") {
+			setIcon("fluent:weather-drizzle-24-filled");
+		} else if (data.weather[0].main === "Snow") {
+			setIcon("ri:snowflake-fill");
+		} else if (data.weather[0].main === "Mist") {
+			setIcon("tabler:mist");
+		} else if (data.weather[0].main === "Haze") {
+			setIcon("bi:cloud-haze2-fill");
+		} else if (data.weather[0].main === "Fog") {
+			setIcon("tabler:mist");
+		} else if (data.weather[0].main === "Smoke") {
+			setIcon("ri:smoke-fill");
+		} else if (data.weather[0].main === "Dust") {
+			setIcon("ri:dust-fill");
+		} else if (data.weather[0].main === "Sand") {
+			setIcon("ri:sandstorm-fill");
+		} else if (data.weather[0].main === "Ash") {
+			setIcon("ri:ash-fill");
+		} else if (data.weather[0].main === "Squall") {
+			setIcon("ri:squall-fill");
+		} else if (data.weather[0].main === "Tornado") {
+			setIcon("ri:tornado-fill");
+		}
+	}
+
 	// tiap 1 detik function sbb akan dijalankan
 	useEffect(() => {
 		const interval = setInterval(() => {
 			updateStatus(button, where);
-			IsiSalam();
 			// AlertMakan();
 			// AlertTidur();
 			// AlertBelajar();
 			// AlertSosial();
 			// AlertMain();
-			// changeBackground();
-			CheckIncrements();
 		}, 1000);
-		date();
 		return () => clearInterval(interval);
 	});
 
+	// ini use effect fast resp :D WKKWWK
 	useEffect(() => {
-		// searchLocation();
+		const interval = setInterval(() => {
+			changeBackground();
+			CheckIncrements();
+			WeatherIcon();
+			IsiSalam();
+			HideKampus();
+		}, 1);
+
+		return () => clearInterval(interval);
+	});
+
+	// windows onload
+	useEffect(() => {
+		searchLocation();
+		passAvatar();
 	}, []);
 
 	// useEffect UNTUK UPDATE CUACA TIAP 5 MENIT
 	useEffect(() => {
 		const interval = setInterval(() => {
-			// searchLocation();
+			searchLocation();
 		}, 300000);
 
 		return () => clearInterval(interval);
@@ -372,252 +453,85 @@ function GamePage() {
 		}
 	}
 
+	//FUNCTION CHECK INCREMENT == 7
 	function CheckIncrements() {
-		if (increment === 7) {
-			alert("selamat!");
+		if (
+			increment === 7 &&
+			incrementMakan >= incrementBelajar &&
+			incrementMakan >= incrementTidur &&
+			incrementMakan >= incrementMain
+		) {
+			alert("Selama seminggu ini kamu sering makan!");
+		} else if (
+			increment === 7 &&
+			incrementBelajar >= incrementMakan &&
+			incrementBelajar >= incrementTidur &&
+			incrementBelajar >= incrementMain
+		) {
+			alert("Selama seminggu ini kamu sering belajar!");
+		} else if (
+			increment === 7 &&
+			incrementTidur >= incrementMakan &&
+			incrementTidur >= incrementBelajar &&
+			incrementTidur >= incrementMain
+		) {
+			alert("Selama seminggu ini kamu sering tidur!");
+		} else if (
+			increment === 7 &&
+			incrementMain >= incrementMakan &&
+			incrementMain >= incrementBelajar &&
+			incrementMain >= incrementTidur
+		) {
+			alert("Selama seminggu ini kamu sering main!");
 		}
 	}
+
 	// FUNCTION UNTUK GANTI BACKGROUND
-	// function changeBackground() {
-	// 	//SET BACKGROUND DEFAULT (RUMAH)
-	// 	if (
-	// 		where === "" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_1);
-	// 	} else if (
-	// 		where === "" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_2);
-	// 	} else if (
-	// 		where === "" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_3);
-	// 	} else if (
-	// 		where === "" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_4);
-	// 	} else if (
-	// 		where === "" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_5);
-	// 	} else if (
-	// 		where === "" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_6);
-	// 	} else if (
-	// 		where === "" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_7);
-	// 	} else if (
-	// 		where === "" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_8);
-	// 	}
+	function changeBackground() {
+		//SET BACKGROUND DEFAULT (RUMAH)
+		if ((where === "" || where === "rumah") && waktu === "Pagi") {
+			setBackground(home_morning);
+		} else if ((where === "" || where === "rumah") && waktu === "Siang") {
+			setBackground(home_afternoon);
+		} else if ((where === "" || where === "rumah") && waktu === "Sore") {
+			setBackground(home_evening);
+		} else if ((where === "" || where === "rumah") && waktu === "Malam") {
+			setBackground(home_night);
+		}
 
-	// 	//SET BACKGROUND RUMAH
-	// 	else if (
-	// 		where === "rumah" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_1);
-	// 	} else if (
-	// 		where === "rumah" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_2);
-	// 	} else if (
-	// 		where === "rumah" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_3);
-	// 	} else if (
-	// 		where === "rumah" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_4);
-	// 	} else if (
-	// 		where === "rumah" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_5);
-	// 	} else if (
-	// 		where === "rumah" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_6);
-	// 	} else if (
-	// 		where === "rumah" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_7);
-	// 	} else if (
-	// 		where === "rumah" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_8);
-	// 	}
+		// SET BACKGROUND KAMPUS
+		else if (where === "kampus" && waktu === "Pagi") {
+			setBackground(campus_morning);
+		} else if (where === "kampus" && waktu === "Siang") {
+			setBackground(campus_afternoon);
+		} else if (where === "kampus" && waktu === "Sore") {
+			setBackground(campus_evening);
+		} else if (where === "kampus" && waktu === "Malam") {
+			setBackground(campus_night);
+		}
 
-	// 	// SET BACKGROUND KAMPUS
-	// 	else if (
-	// 		where === "kampus" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_9);
-	// 	} else if (
-	// 		where === "kampus" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_10);
-	// 	} else if (
-	// 		where === "kampus" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_11);
-	// 	} else if (
-	// 		where === "kampus" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_12);
-	// 	} else if (
-	// 		where === "kampus" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_13);
-	// 	} else if (
-	// 		where === "kampus" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_14);
-	// 	} else if (
-	// 		where === "kampus" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 		// setBackground(background_15);
-	// 	} else if (
-	// 		where === "kampus" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 		// setBackground(background_16);
-	// 	}
+		// // SET BACKGROUND CAFE
+		else if (where === "cafe" && waktu === "Pagi") {
+			setBackground(cafe_morning);
+		} else if (where === "cafe" && waktu === "Siang") {
+			setBackground(cafe_afternoon);
+		} else if (where === "cafe" && waktu === "Sore") {
+			setBackground(cafe_evening);
+		} else if (where === "cafe" && waktu === "Malam") {
+			setBackground(cafe_night);
+		}
 
-	// 	// SET BACKGROUND CAFE
-	// 	else if (
-	// 		where === "cafe" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 	} else if (
-	// 		where === "cafe" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 	} else if (
-	// 		where === "cafe" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 	} else if (
-	// 		where === "cafe" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 	} else if (
-	// 		where === "cafe" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 	} else if (
-	// 		where === "cafe" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 	} else if (
-	// 		where === "cafe" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 	} else if (
-	// 		where === "cafe" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 	}
-
-	// 	// SET BACKGROUND SUPERMARKET
-	// 	else if (
-	// 		where === "supermarket" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 	} else if (
-	// 		where === "supermarket" &&
-	// 		waktu === "Pagi" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 	} else if (
-	// 		where === "supermarket" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 	} else if (
-	// 		where === "supermarket" &&
-	// 		waktu === "Siang" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 	} else if (
-	// 		where === "supermarket" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 	} else if (
-	// 		where === "supermarket" &&
-	// 		waktu === "Sore" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 	} else if (
-	// 		where === "supermarket" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Clear" || "Clouds")
-	// 	) {
-	// 	} else if (
-	// 		where === "supermarket" &&
-	// 		waktu === "Malam" &&
-	// 		data.weather[0].main === ("Thunderstorm" || "Drizzle" || "Rain")
-	// 	) {
-	// 	}
-	// }
+		// SET BACKGROUND SUPERMARKET
+		else if (where === "supermarket" && waktu === "Pagi") {
+			setBackground(supermarket_morning);
+		} else if (where === "supermarket" && waktu === "Siang") {
+			setBackground(supermarket_afternoon);
+		} else if (where === "supermarket" && waktu === "Sore") {
+			setBackground(supermarket_evening);
+		} else if (where === "supermarket" && waktu === "Malam") {
+			setBackground(supermarket_night);
+		}
+	}
 
 	// FUNCTION UNTUK KASIH SALAM
 	function IsiSalam() {
@@ -629,6 +543,15 @@ function GamePage() {
 			setSalam("Good Afternoon");
 		} else if (waktu === "Sore") {
 			setSalam("Good Evening");
+		}
+	}
+
+	// FUNCTION HIDE KAMPUS
+	function HideKampus() {
+		if (noCampus === "Campus Open") {
+			setHideKampus(true);
+		} else if (noCampus === "Campus Closed") {
+			setHideKampus(false);
 		}
 	}
 
@@ -721,7 +644,6 @@ function GamePage() {
 		setIsClickedMakan(true);
 		setIsClickedMain(true);
 		setIsClickedBelajar(true);
-		setIsClickedSosial(true);
 
 		if (isClickedTidur) {
 			setButton("tidur");
@@ -729,9 +651,24 @@ function GamePage() {
 			setWarnaMakan("#D0DCE5");
 			setWarnaMain("#D0DCE5");
 			setWarnaBelajar("#D0DCE5");
+			setIncrementTidur(incrementTidur + 1);
+
+			// SET AVATAR
+			if (current === 0) {
+				setAvatar(tidur_1);
+			} else if (current === 1) {
+				setAvatar(tidur_2);
+			} else if (current === 2) {
+				setAvatar(tidur_3);
+			} else if (current === 3) {
+				setAvatar(tidur_4);
+			} else if (current === 4) {
+				setAvatar(tidur_5);
+			}
 		} else {
 			setButton("");
 			setWarnaSleep("#D0DCE5");
+			passAvatar();
 		}
 		setIsClickedTidur(!isClickedTidur);
 	}
@@ -740,7 +677,6 @@ function GamePage() {
 	function eatHandler() {
 		setIsClickedMain(true);
 		setIsClickedBelajar(true);
-		setIsClickedSosial(true);
 		setIsClickedTidur(true);
 
 		if (isClickedMakan) {
@@ -749,9 +685,25 @@ function GamePage() {
 			setWarnaMain("#D0DCE5");
 			setWarnaBelajar("#D0DCE5");
 			setWarnaSleep("#D0DCE5");
+			setIncrementMakan(incrementMakan + 1);
+
+			// SET AVATAR
+			// SET AVATAR
+			if (current === 0) {
+				setAvatar(makan_1);
+			} else if (current === 1) {
+				setAvatar(makan_2);
+			} else if (current === 2) {
+				setAvatar(makan_3);
+			} else if (current === 3) {
+				setAvatar(makan_4);
+			} else if (current === 4) {
+				setAvatar(makan_5);
+			}
 		} else {
 			setButton("");
 			setWarnaMakan("#D0DCE5");
+			passAvatar();
 		}
 		setIsClickedMakan(!isClickedMakan);
 	}
@@ -759,7 +711,6 @@ function GamePage() {
 	// function toggle belajar
 	function belajarHandler() {
 		setIsClickedMain(true);
-		setIsClickedSosial(true);
 		setIsClickedMakan(true);
 		setIsClickedTidur(true);
 
@@ -769,12 +720,26 @@ function GamePage() {
 			setWarnaMakan("#D0DCE5");
 			setWarnaMain("#D0DCE5");
 			setWarnaSleep("#D0DCE5");
-			// setAvatar(
-			// 	"https://cdn.discordapp.com/attachments/981553514398515211/981569606772736000/Untitled_design_1.png"
-			// );
+			setIncrementBelajar(incrementBelajar + 1);
+			console.log(incrementBelajar);
+
+			// SET AVATAR
+			// SET AVATAR
+			if (current === 0) {
+				setAvatar(belajar_1);
+			} else if (current === 1) {
+				setAvatar(belajar_2);
+			} else if (current === 2) {
+				setAvatar(belajar_3);
+			} else if (current === 3) {
+				setAvatar(belajar_4);
+			} else if (current === 4) {
+				setAvatar(belajar_5);
+			}
 		} else {
 			setButton("");
 			setWarnaBelajar("#D0DCE5");
+			passAvatar();
 		}
 		setIsClickedBelajar(!isClickedBelajar);
 	}
@@ -782,7 +747,6 @@ function GamePage() {
 	// function toggle main
 	function mainHandler() {
 		setIsClickedBelajar(true);
-		setIsClickedSosial(true);
 		setIsClickedMakan(true);
 		setIsClickedTidur(true);
 
@@ -792,39 +756,34 @@ function GamePage() {
 			setWarnaBelajar("#D0DCE5");
 			setWarnaMakan("#D0DCE5");
 			setWarnaSleep("#D0DCE5");
+			setIncrementMain(incrementMain + 1);
+
+			// SET AVATAR
+			if (current === 0) {
+				setAvatar(main_1);
+			} else if (current === 1) {
+				setAvatar(main_2);
+			} else if (current === 2) {
+				setAvatar(main_3);
+			} else if (current === 3) {
+				setAvatar(main_4);
+			} else if (current === 4) {
+				setAvatar(main_5);
+			}
 		} else {
 			setButton("");
 			setWarnaMain("#D0DCE5");
+			passAvatar();
 		}
 		setIsClickedMain(!isClickedMain);
 	}
 
 	return (
 		<Box
-			// bgImage={umn}
-			// bgSize="1700px"
-			// bgPosition="center"
-			// h="100vh"
-			// bgRepeat="no-repeat"
-			// justifyContent="center"
-			// alignItems="center"
-			// p="30px"
-			// flexDirection={{ base: "column", md: "row" }}
-			// height="100vh"
 			bgImage={background}
 			backgroundRepeat="no-repeat"
 			backgroundSize="cover"
 		>
-			{/* <Flex
-				height="40px"
-				bgColor="#EFF4F8"
-				alignItems="center"
-				px="10px"
-				justifyContent="space-between"
-			>
-				<Heading size="md">09.45</Heading>
-				<Heading size="sm">{count}</Heading>
-			</Flex> */}
 			<Jam />
 			<Flex
 				alignItems="center"
@@ -849,35 +808,32 @@ function GamePage() {
 					flexDirection="column"
 					marginBottom="10px"
 				>
-					<Box
+					<Flex
 						className="greetings-weather"
 						bg="#EAF0F6"
 						p="20px"
 						borderRadius="30px"
+						alignItems="center"
+						justifyContent="space-between"
 					>
-						<Heading size="lg">{salam}</Heading>
+						<Box>
+							<Heading size="lg">{salam}</Heading>
 
-						{data.weather ? (
-							<Heading size="md" color="#0B66AE">
-								{data.weather[0].main} {data.main.temp.toFixed()}°F
-							</Heading>
-						) : null}
-
-						<Text fontSize="md">{loginData.nama}</Text>
-						<Text fontSize="sm" as="i">
-							{loginData.jurusan}
-						</Text>
-						{/* <Box>
 							{data.weather ? (
-								<Image
-									src={`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
-									objectFit="cover"
-									boxSize={{ md: "100px", base: "50px" }}
-									py="20px"
-								></Image>
+								<Heading size="md" color="#0B66AE">
+									{data.weather[0].main} {data.main.temp.toFixed()}°F
+								</Heading>
 							) : null}
-						</Box> */}
-					</Box>
+
+							<Text fontSize="md">{loginData.nama}</Text>
+							<Text fontSize="sm" as="i">
+								{loginData.jurusan}
+							</Text>
+						</Box>
+						<Box pr="25px">
+							<Icon icon={icon} width="70px" color="#467090" />
+						</Box>
+					</Flex>
 					<Flex
 						className="progress-bar"
 						bg="#EAF0F6"
@@ -1007,7 +963,7 @@ function GamePage() {
 								borderRadius="30px"
 								width="160px"
 							>
-								Main
+								Play
 							</Button>
 						)}
 						{hideBelajar && (
@@ -1018,7 +974,7 @@ function GamePage() {
 								borderRadius="30px"
 								width="160px"
 							>
-								Belajar
+								Study
 							</Button>
 						)}
 					</Flex>
@@ -1041,7 +997,7 @@ function GamePage() {
 								width="150px"
 								onClick={onOpen}
 							>
-								Pindah tempat
+								Change Location
 							</Button>
 							<Drawer
 								isOpen={isOpen}
@@ -1069,14 +1025,16 @@ function GamePage() {
 											>
 												Home
 											</Button>
-											<Button
-												bg={warnaKampus}
-												borderRadius="30px"
-												width="160px"
-												onClick={toggleKampus}
-											>
-												Kampus
-											</Button>
+											{hideKampus && (
+												<Button
+													bg={warnaKampus}
+													borderRadius="30px"
+													width="160px"
+													onClick={toggleKampus}
+												>
+													Campus
+												</Button>
+											)}
 											<Button
 												bg={warnaCafe}
 												borderRadius="30px"

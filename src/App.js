@@ -19,6 +19,10 @@ function App() {
 
 	const [increment, setIncrement] = useState(0);
 
+	// FUNCTION GAK KAMPUS
+
+	const [noCampus, setNoCampus] = useState("");
+
 	return (
 		<BrowserRouter>
 			<UserContext.Provider
@@ -31,6 +35,8 @@ function App() {
 					setWaktu,
 					increment,
 					setIncrement,
+					noCampus,
+					setNoCampus,
 				}}
 			>
 				<Routes>

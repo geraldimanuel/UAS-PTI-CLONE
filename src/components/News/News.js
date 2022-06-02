@@ -38,7 +38,6 @@ function News() {
 				borderRadius="30px"
 				width="150px"
 				bgColor="#B4EBC7"
-				color="#519D6B"
 			>
 				News
 			</Button>
@@ -64,7 +63,9 @@ function News() {
 								p={4}
 								marginBottom="10px"
 							>
-								<Heading size="sm">{item.title}</Heading>
+								<Heading size="sm" color="#467090" mb="5px">
+									{item.title}
+								</Heading>
 								<Text>{item.description}</Text>
 							</Box>
 						))}
