@@ -18,7 +18,7 @@ import {
 	DrawerCloseButton,
 	useDisclosure,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../lib/UserContext";
 import { Icon } from "@iconify/react";
 import Jam from "../components/Jam/Jam";
@@ -85,6 +85,9 @@ function GamePage() {
 	const { waktu, setWaktu } = useContext(UserContext);
 	const { increment, setIncrement } = useContext(UserContext);
 	const { noCampus, setNoCampus } = useContext(UserContext);
+
+	// USE NAVIGATE
+	let navigate = useNavigate();
 
 	// DECLARE UPDATE WEATHER
 	const [data, setData] = useState({});
@@ -178,142 +181,142 @@ function GamePage() {
 	// FUNCTION UPDATE STATUS + UPDATE TOMBOL + HIDE TOMBOL SESUAI LOKASI DAN STATUS
 	const updateStatus = (status, tempat) => {
 		if (status === "" && tempat === "") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 			setWarnaHome("#8FC3EE");
 		} else if (status === "tidur" && tempat === "") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.5, "naik");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.9, "naik");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 			setWarnaHome("#8FC3EE");
 		} else if (status === "makan" && tempat === "") {
-			limitStatus(statusMakan, setstatusMakan, 0.5, "naik");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.9, "naik");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 			setWarnaHome("#8FC3EE");
 		} else if (status === "belajar" && tempat === "") {
 			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
 			limitStatus(statusMain, setstatusMain, 0.3, "turun");
 			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
 			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
-			limitStatus(statusBelajar, setstatusBelajar, 0.4, "naik");
+			limitStatus(statusBelajar, setstatusBelajar, 0.5, "naik");
 			setWarnaHome("#8FC3EE");
 		} else if (status === "main" && tempat === "") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.2, "naik");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.15, "naik");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.9, "naik");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.7, "naik");
 			setWarnaHome("#8FC3EE");
 		}
 		// INI RUMAH
 		else if (status === "" && tempat === "rumah") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "tidur" && tempat === "rumah") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.5, "naik");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.9, "naik");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "makan" && tempat === "rumah") {
-			limitStatus(statusMakan, setstatusMakan, 0.5, "naik");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.7, "naik");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "belajar" && tempat === "rumah") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
-			limitStatus(statusBelajar, setstatusBelajar, 0.4, "naik");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
+			limitStatus(statusBelajar, setstatusBelajar, 0.7, "naik");
 		} else if (status === "main" && tempat === "rumah") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.2, "naik");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.7, "naik");
 			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.15, "naik");
+			limitStatus(statusSosial, setstatusSosial, 0.7, "naik");
 		}
 		// INI KAMPUS
 		else if (status === "" && tempat === "kampus") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "makan" && tempat === "kampus") {
-			limitStatus(statusMakan, setstatusMakan, 0.8, "naik");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.7, "naik");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "belajar" && tempat === "kampus") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
-			limitStatus(statusBelajar, setstatusBelajar, 0.8, "naik");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
+			limitStatus(statusBelajar, setstatusBelajar, 0.9, "naik");
 		} else if (status === "main" && tempat === "kampus") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.7, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.7, "naik");
 		}
 		// INI CAFE
 		else if (status === "" && tempat === "cafe") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "tidur" && tempat === "cafe") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "makan" && tempat === "cafe") {
-			limitStatus(statusMakan, setstatusMakan, 0.8, "naik");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.9, "naik");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "belajar" && tempat === "cafe") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 			limitStatus(statusBelajar, setstatusBelajar, 0.3, "naik"); // naik tapi ga secepet di kampus
 		} else if (status === "main" && tempat === "cafe") {
-			limitStatus(statusMakan, setstatusMakan, 0.3, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.9, "turun");
 			limitStatus(statusMain, setstatusMain, 0.4, "naik");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.3, "naik");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.9, "naik");
 		}
 		// INI SUPERMARKET
 		else if (status === "" && tempat === "supermarket") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "tidur" && tempat === "supermarket") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "makan" && tempat === "supermarket") {
-			limitStatus(statusMakan, setstatusMakan, 0.8, "naik");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.9, "naik");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "belajar" && tempat === "supermarket") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.3, "turun");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "turun");
 		} else if (status === "main" && tempat === "supermarket") {
-			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
-			limitStatus(statusMain, setstatusMain, 0.4, "naik");
-			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
-			limitStatus(statusSosial, setstatusSosial, 0.2, "naik");
+			limitStatus(statusMakan, setstatusMakan, 0.5, "turun");
+			limitStatus(statusMain, setstatusMain, 0.5, "naik");
+			limitStatus(statusTuru, setstatusTuru, 0.3, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.5, "naik");
 		}
 	};
 
@@ -382,11 +385,11 @@ function GamePage() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			updateStatus(button, where);
-			// AlertMakan();
-			// AlertTidur();
-			// AlertBelajar();
-			// AlertSosial();
-			// AlertMain();
+			AlertMakan(interval);
+			AlertTidur(interval);
+			// AlertBelajar(interval);
+			AlertSosial(interval);
+			AlertMain(interval);
 		}, 1000);
 		return () => clearInterval(interval);
 	});
@@ -420,32 +423,47 @@ function GamePage() {
 	});
 
 	// FUNCTION ALERT MAKAN
-	function AlertMakan() {
-		if (statusMakan <= 25 && statusMakan >= 24.8) {
-			alert("Anda kelaparan segeralah makan!");
+	function AlertMakan(interval) {
+		if (statusMakan <= 1) {
+			clearInterval(interval);
+			alert("Anda mati karena dehidrasi dan kurang gizi!");
+			navigate("/");
 		}
 	}
 
 	//FUNCTION ALERT BELAJAR *bikin nanti berdasarkan waktu*
+	// function AlertBelajar(interval) {
+	// 	if (statusBelajar === 0 && increment === 1) {
+	// 		clearInterval(interval);
+	// 		alert("Anda di DO, karena tidak pernah belajar!");
+	// 		navigate("/");
+	// 	}
+	// }
 
 	//FUNCTION ALERT MAIN
-	function AlertMain() {
-		if ((statusMain = 25)) {
-			alert("Anda kurang bermain segeralah main! ");
+	function AlertMain(interval) {
+		if (statusMain <= 1) {
+			clearInterval(interval);
+			alert("Anda meninggal karena depresi! ");
+			navigate("/");
 		}
 	}
 
 	//FUNCTION ALERT SOSIAL
-	function AlertSosial() {
-		if (statusSosial <= 25) {
-			alert("Anda kurang bersosialisasi segeralah sosialisasi! ");
+	function AlertSosial(interval) {
+		if (statusSosial <= 1) {
+			clearInterval(interval);
+			alert("Anda meninggal karena depresi! ");
+			navigate("/");
 		}
 	}
 
 	//FUNCTION ALERT TIDUR
-	function AlertTidur() {
-		if (statusTuru <= 25) {
-			alert("Anda kurang istirahat segeralah tidur!");
+	function AlertTidur(interval) {
+		if (statusTuru <= 1) {
+			clearInterval(interval);
+			alert("Anda mati karena kurang tidur!");
+			navigate("/");
 		}
 	}
 

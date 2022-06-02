@@ -71,7 +71,6 @@ function HowToPlayButton() {
 				borderRadius="30px"
 				border="1px solid"
 				borderColor="#000000"
-				// width="290px"
 				textAlign={["center"]}
 			>
 				Cara Bermain
@@ -141,7 +140,6 @@ function AboutButton() {
 				borderRadius="30px"
 				border="1px solid"
 				borderColor="#000000"
-				// width="290px"
 				textAlign={["center"]}
 			>
 				Tentang Kami
@@ -150,7 +148,7 @@ function AboutButton() {
 			<Modal isCentered isOpen={isOpen} onClose={onClose}>
 				{overlay}
 				<ModalContent>
-					<ModalHeader>Kelompok 3</ModalHeader>
+					<ModalHeader>Kelompok 7</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
 						<Text>Gerald Imanuel Wijaya (00000060106)</Text>
@@ -216,7 +214,6 @@ function LoginPage() {
 			bgColor="#0B66AE"
 			gap="15px"
 			height="100vh"
-			objectFit="contain"
 		>
 			<Flex
 				className="kotak-kecil"

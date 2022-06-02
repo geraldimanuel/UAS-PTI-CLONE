@@ -9,8 +9,8 @@ import Jam from "../src/components/Jam/Jam";
 
 function App() {
 	const [loginData, setLoginData] = useState({
-		nama: "",
-		jurusan: "",
+		nama: "Player01",
+		jurusan: "Unknown!",
 	});
 
 	const [current, setCurrent] = useState(0);
