@@ -90,7 +90,7 @@ function GamePage() {
 	const [data, setData] = useState({});
 	const [location, setLocation] = useState("");
 	const url = `https://api.openweathermap.org/data/2.5/weather?lat=-6.261180
-	&lon=106.616820&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`;
+	&lon=106.616820&units=imperial&appid=ab0f345ea0cbf3b442ca0d46875f076b`;
 
 	// DECLARE UNTUK HITUNG JUMLAH BUTTON DISENTUH
 	const [incrementMakan, setIncrementMakan] = useState(0);
@@ -178,148 +178,142 @@ function GamePage() {
 	// FUNCTION UPDATE STATUS + UPDATE TOMBOL + HIDE TOMBOL SESUAI LOKASI DAN STATUS
 	const updateStatus = (status, tempat) => {
 		if (status === "" && tempat === "") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 			setWarnaHome("#8FC3EE");
 		} else if (status === "tidur" && tempat === "") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter + 0.5); //ini naik
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
-
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.5, "naik");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 			setWarnaHome("#8FC3EE");
 		} else if (status === "makan" && tempat === "") {
-			setstatusMakan((prevCounter) => prevCounter + 0.8); // ini naik
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.5, "naik");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 			setWarnaHome("#8FC3EE");
 		} else if (status === "belajar" && tempat === "") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
-			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusBelajar, setstatusBelajar, 0.4, "naik");
 			setWarnaHome("#8FC3EE");
 		} else if (status === "main" && tempat === "") {
-			setstatusMakan((prevCounter) => prevCounter - 0.3);
-			setstatusTuru((prevCounter) => prevCounter - 0.2); //ini naik
-			setstatusMain((prevCounter) => prevCounter + 0.4);
-			setstatusSosial((prevCounter) => prevCounter + 0.15); // ini naik
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.2, "naik");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.15, "naik");
 			setWarnaHome("#8FC3EE");
 		}
 		// INI RUMAH
 		else if (status === "" && tempat === "rumah") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "tidur" && tempat === "rumah") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter + 0.5); //ini naik
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.5, "naik");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "makan" && tempat === "rumah") {
-			setstatusMakan((prevCounter) => prevCounter + 0.8); // ini naik
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.5, "naik");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "belajar" && tempat === "rumah") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
-			setstatusBelajar((prevCounter) => prevCounter + 0.5); //ini naik
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusBelajar, setstatusBelajar, 0.4, "naik");
 		} else if (status === "main" && tempat === "rumah") {
-			setstatusMakan((prevCounter) => prevCounter - 0.3);
-			setstatusTuru((prevCounter) => prevCounter - 0.2); //ini naik
-			setstatusMain((prevCounter) => prevCounter + 0.4);
-			setstatusSosial((prevCounter) => prevCounter + 0.15); // ini naik
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.2, "naik");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.15, "naik");
 		}
 		// INI KAMPUS
 		else if (status === "" && tempat === "kampus") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
-		} else if (status === "tidur" && tempat === "kampus") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "makan" && tempat === "kampus") {
-			setstatusMakan((prevCounter) => prevCounter + 0.8); // ini naik
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.8, "naik");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "belajar" && tempat === "kampus") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
-			setstatusBelajar((prevCounter) => prevCounter + 0.8); //ini naik
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusBelajar, setstatusBelajar, 0.8, "naik");
 		} else if (status === "main" && tempat === "kampus") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		}
 		// INI CAFE
 		else if (status === "" && tempat === "cafe") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "tidur" && tempat === "cafe") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "makan" && tempat === "cafe") {
-			setstatusMakan((prevCounter) => prevCounter + 0.8); // ini naik
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.8, "naik");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "belajar" && tempat === "cafe") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.3);
-			setstatusBelajar((prevCounter) => prevCounter + 0.3); // naik tapi ga secepet di kampus
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
+			limitStatus(statusBelajar, setstatusBelajar, 0.3, "naik"); // naik tapi ga secepet di kampus
 		} else if (status === "main" && tempat === "cafe") {
-			setstatusMakan((prevCounter) => prevCounter - 0.3);
-			setstatusTuru((prevCounter) => prevCounter - 0.2); //ini naik
-			setstatusMain((prevCounter) => prevCounter + 0.4);
-			setstatusSosial((prevCounter) => prevCounter + 0.15); // ini naik
+			limitStatus(statusMakan, setstatusMakan, 0.3, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "naik");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.3, "naik");
 		}
 		// INI SUPERMARKET
 		else if (status === "" && tempat === "supermarket") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "tidur" && tempat === "supermarket") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "makan" && tempat === "supermarket") {
-			setstatusMakan((prevCounter) => prevCounter + 0.8); // ini naik
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.2);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.8, "naik");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "belajar" && tempat === "supermarket") {
-			setstatusMakan((prevCounter) => prevCounter - 0.4);
-			setstatusTuru((prevCounter) => prevCounter - 0.2);
-			setstatusMain((prevCounter) => prevCounter - 0.3);
-			setstatusSosial((prevCounter) => prevCounter - 0.1);
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.3, "turun");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.1, "turun");
 		} else if (status === "main" && tempat === "supermarket") {
-			setstatusMakan((prevCounter) => prevCounter - 0.3);
-			setstatusTuru((prevCounter) => prevCounter - 0.2); //ini naik
-			setstatusMain((prevCounter) => prevCounter + 0.4);
-			setstatusSosial((prevCounter) => prevCounter + 0.15); // ini naik
+			limitStatus(statusMakan, setstatusMakan, 0.4, "turun");
+			limitStatus(statusMain, setstatusMain, 0.4, "naik");
+			limitStatus(statusTuru, setstatusTuru, 0.2, "turun");
+			limitStatus(statusSosial, setstatusSosial, 0.2, "naik");
 		}
 	};
 
@@ -349,7 +343,9 @@ function GamePage() {
 
 	// FUNCTION UNTUK GANTI ICON SESUAI CUACA
 	function WeatherIcon() {
-		if (data.weather[0].main === "Clear") {
+		if (data.weather[0].main === "") {
+			setIcon("");
+		} else if (data.weather[0].main === "Clear") {
 			setIcon("ic:round-wb-sunny");
 		} else if (data.weather[0].main === "Clouds") {
 			setIcon("bi:clouds-fill");
