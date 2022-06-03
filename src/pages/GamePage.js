@@ -818,6 +818,7 @@ function GamePage() {
 			bgImage={background}
 			backgroundRepeat="no-repeat"
 			backgroundSize="cover"
+			overflow="hidden"
 		>
 			<Jam />
 			<Flex
@@ -874,7 +875,7 @@ function GamePage() {
 					<Flex
 						className="progress-bar"
 						bg="#EAF0F6"
-						p="30px"
+						p="20px"
 						borderRadius="30px"
 						flexDirection="column"
 						gap={3}
