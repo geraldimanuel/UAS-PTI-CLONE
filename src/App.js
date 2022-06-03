@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import GamePage from "./pages/GamePage";
 import LoginPage from "./pages/LoginPage";
 import ImageSlider from "components/Carousel/ImageSlider";
@@ -28,7 +28,7 @@ function App() {
 	const [intervalPause, setIntervalPause] = useState("1000");
 
 	return (
-		<BrowserRouter>
+		<HashRouter>
 			<UserContext.Provider
 				value={{
 					loginData,
@@ -57,7 +57,7 @@ function App() {
 					<Route path="/Pause" element={<Jam />} /> */}
 				</Routes>
 			</UserContext.Provider>
-		</BrowserRouter>
+		</HashRouter>
 	);
 }
 
