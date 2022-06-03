@@ -157,23 +157,10 @@ function AboutButton() {
 					<ModalBody>
 						<Text>Gerald Imanuel Wijaya (00000060106) as</Text>
 						<Text as="i">Lead Developer</Text>
+
 						<br />
-						<br />
-						<Text>Steven Arya Setyadharma T.C (00000055610) as</Text>
-						<Text as="i">Web Scripting</Text>
-						<br />
-						<br />
-						<Text>Ikbar Muhammad Mumtaz (00000061296) as</Text>
-						<Text as="i">Visuals Designer</Text>
-						<br />
-						<br />
-						<Text>Michael Danda Pratama (00000055630) as</Text>
-						<Text as="i">Algorithm Designer and Assets Designer</Text>
-						<br />
-						<AspectRatio maxW="560px" ratio={1}>
+						<AspectRatio>
 							<iframe
-								width="560"
-								height="315"
 								src="https://www.youtube.com/embed/lLVcpBeXVyU"
 								title="YouTube video player"
 								frameborder="0"
