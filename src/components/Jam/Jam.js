@@ -5,7 +5,7 @@ import { UserContext } from "../../lib/UserContext";
 
 function Jam() {
 	// DECLARE JAM SEKARANG
-	const [jam, setJam] = useState(startOfToday());
+	const [jam, setJam] = useState(startOfWeek(startOfToday()));
 
 	// DECLARE VALUE BUAT TAU SKRG JAM BRP HARI APA
 	const { waktu, setWaktu } = useContext(UserContext);
