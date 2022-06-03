@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/UAS-PTI-CLONE/static/css/main.51d455e2.css",
-    "main.js": "/UAS-PTI-CLONE/static/js/main.e4b1077c.js",
+    "main.js": "/UAS-PTI-CLONE/static/js/main.95f0da76.js",
     "static/js/845.26bf3aa2.chunk.js": "/UAS-PTI-CLONE/static/js/845.26bf3aa2.chunk.js",
     "static/media/supermarket_morning.jpg": "/UAS-PTI-CLONE/static/media/supermarket_morning.0dccbeb8282b21204ae8.jpg",
     "static/media/campus_afternoon_hujan.png": "/UAS-PTI-CLONE/static/media/campus_afternoon_hujan.0f46a03a4de83e18a349.png",
@@ -61,11 +61,11 @@
     "static/media/open-sans-greek-ext-400-normal.woff2": "/UAS-PTI-CLONE/static/media/open-sans-greek-ext-400-normal.6e872659616d9b8fb28c.woff2",
     "index.html": "/UAS-PTI-CLONE/index.html",
     "main.51d455e2.css.map": "/UAS-PTI-CLONE/static/css/main.51d455e2.css.map",
-    "main.e4b1077c.js.map": "/UAS-PTI-CLONE/static/js/main.e4b1077c.js.map",
+    "main.95f0da76.js.map": "/UAS-PTI-CLONE/static/js/main.95f0da76.js.map",
     "845.26bf3aa2.chunk.js.map": "/UAS-PTI-CLONE/static/js/845.26bf3aa2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.51d455e2.css",
-    "static/js/main.e4b1077c.js"
+    "static/js/main.95f0da76.js"
   ]
 }
