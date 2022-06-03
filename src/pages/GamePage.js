@@ -81,6 +81,9 @@ import supermarket_afternoon from "../Assets/pictures/places/supermarket/superma
 import supermarket_evening from "../Assets/pictures/places/supermarket/supermarket_evening.jpg";
 import supermarket_night from "../Assets/pictures/places/supermarket/supermarket_night.jpg";
 
+// IMPORT OVERLAY HUJAN
+import rain from "../Assets/pictures/overlay/rain.png";
+
 // IMPORT SOUND EFFECT
 import makan from "../Assets/music/makan.m4a";
 import main from "../Assets/music/main.m4a";
@@ -103,6 +106,9 @@ function GamePage() {
 	const { incrementBelajar, setIncrementBelajar } = useContext(UserContext);
 	const { setPesan } = useContext(UserContext);
 	const { setPesanMati } = useContext(UserContext);
+
+	// OVERLAY HUJAN
+	const [overlay, setOverlay] = useState();
 
 	// SOUND EFFECT
 	const [makanSound] = useSound(makan);
