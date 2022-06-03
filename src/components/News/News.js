@@ -19,13 +19,26 @@ function News() {
 	const btnRef = React.useRef();
 
 	const [data, setData] = React.useState([]);
-	React.useEffect(() => {
-		fetch(
-			"https://newsapi.org/v2/top-headlines?country=id&apiKey=169c0cc2f63b475fb0236c42e4777cfd"
-		)
-			.then((res) => res.json())
-			.then((res) => setData(res.articles));
-	}, []);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			fetch(
+				"https://newsapi.org/v2/top-headlines?country=id&apiKey=169c0cc2f63b475fb0236c42e4777cfd"
+			)
+				.then((res) => res.json())
+				.then((res) => setData(res.articles));
+		}, 600000);
+
+		return () => clearInterval(interval);
+	});
+
+	// React.useEffect(() => {
+	// 	fetch(
+	// 		"https://newsapi.org/v2/top-headlines?country=id&apiKey=169c0cc2f63b475fb0236c42e4777cfd"
+	// 	)
+	// 		.then((res) => res.json())
+	// 		.then((res) => setData(res.articles));
+	// }, []);
 
 	return (
 		<>
