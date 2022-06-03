@@ -71,7 +71,7 @@ function HowToPlayButton() {
 				textAlign={["center"]}
 				width={{ md: "140px", base: "290px" }}
 			>
-				Cara Bermain
+				Guide
 			</Button>
 			<Modal isCentered isOpen={isOpen} onClose={onClose}>
 				{overlay}
@@ -106,6 +106,10 @@ function HowToPlayButton() {
 							Cafe, dan Supermarket
 						</Text>
 						<br />
+						<Text>
+							5. Pemain hanya bisa pergi ke kampus mulai dari jam 8 pagi hingga
+							jam 5 sore.
+						</Text>
 					</ModalBody>
 					<ModalFooter>
 						<Button onClick={onClose}>Close</Button>
@@ -141,7 +145,7 @@ function AboutButton() {
 				textAlign={["center"]}
 				width={{ md: "140px", base: "290px" }}
 			>
-				Tentang Kami
+				About Us
 			</Button>
 
 			<Modal isCentered isOpen={isOpen} onClose={onClose}>
@@ -150,10 +154,20 @@ function AboutButton() {
 					<ModalHeader>Kelompok 7</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
-						<Text>Gerald Imanuel Wijaya (00000060106)</Text>
-						<Text>Ikbar Muhammad Mumtaz (00000061296)</Text>
-						<Text>Michael Danda Pratama (00000055630)</Text>
-						<Text>Steven Arya Setyadharma T.C (00000055610)</Text>
+						<Text>Gerald Imanuel Wijaya (00000060106) as</Text>
+						<Text as="i">Lead Developer</Text>
+						<br />
+						<br />
+						<Text>Steven Arya Setyadharma T.C (00000055610) as</Text>
+						<Text as="i">Web Scripting</Text>
+						<br />
+						<br />
+						<Text>Ikbar Muhammad Mumtaz (00000061296) as</Text>
+						<Text as="i">Visuals Designer</Text>
+						<br />
+						<br />
+						<Text>Michael Danda Pratama (00000055630) as</Text>
+						<Text as="i">Algorithm Designer and Assets Designer</Text>
 					</ModalBody>
 					<ModalFooter>
 						<Button onClick={onClose}>Close</Button>
@@ -185,7 +199,7 @@ function PilihJurusan() {
 			border="1px solid"
 			borderColor="#000000"
 			width="290px"
-			textAlign={["center"]}
+			textAlign="center"
 		>
 			<option value="Informatika">Informatika</option>
 			<option value="Sistem Informasi">Sistem Informasi</option>
