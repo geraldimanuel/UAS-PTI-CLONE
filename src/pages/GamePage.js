@@ -24,6 +24,7 @@ import { Icon } from "@iconify/react";
 import Jam from "../components/Jam/Jam";
 import News from "../components/News/News";
 import Pause from "../components/Pause/Pause";
+import useSound from "use-sound";
 
 //IMPORT GAMBAR AVATAR
 import default_1 from "../Assets/pictures/avatar/avatar_1/default_1.png";
@@ -66,6 +67,9 @@ import campus_morning from "../Assets/pictures/places/campus/campus_morning.jpg"
 import campus_afternoon from "../Assets/pictures/places/campus/campus_afternoon.jpg";
 import campus_evening from "../Assets/pictures/places/campus/campus_evening.jpg";
 import campus_night from "../Assets/pictures/places/campus/campus_night.jpg";
+import campus_morning_hujan from "../Assets/pictures/places/campus/campus_morning_hujan.png";
+import campus_afternoon_hujan from "../Assets/pictures/places/campus/campus_afternoon_hujan.png";
+import campus_evening_hujan from "../Assets/pictures/places/campus/campus_evening_hujan.png";
 
 import cafe_morning from "../Assets/pictures/places/cafe/cafe_morning.jpg";
 import cafe_afternoon from "../Assets/pictures/places/cafe/cafe_afternoon.jpg";
@@ -76,6 +80,12 @@ import supermarket_morning from "../Assets/pictures/places/supermarket/supermark
 import supermarket_afternoon from "../Assets/pictures/places/supermarket/supermarket_afternoon.jpg";
 import supermarket_evening from "../Assets/pictures/places/supermarket/supermarket_evening.jpg";
 import supermarket_night from "../Assets/pictures/places/supermarket/supermarket_night.jpg";
+
+// IMPORT SOUND EFFECT
+import makan from "../Assets/music/makan.m4a";
+import main from "../Assets/music/main.m4a";
+import belajar from "../Assets/music/belajar.m4a";
+import tidur from "../Assets/music/tidur.m4a";
 
 function GamePage() {
 	// RESPONSIVE STYLE
@@ -102,6 +112,12 @@ function GamePage() {
 	const { incrementBelajar, setIncrementBelajar } = useContext(UserContext);
 	const { pesan, setPesan } = useContext(UserContext);
 	const { pesanMati, setPesanMati } = useContext(UserContext);
+
+	// SOUND EFFECT
+	const [makanSound] = useSound(makan);
+	const [mainSound] = useSound(main);
+	const [belajarSound] = useSound(belajar);
+	const [tidurSound] = useSound(tidur);
 
 	// USE NAVIGATE
 	let navigate = useNavigate();
@@ -533,11 +549,74 @@ function GamePage() {
 		}
 
 		// SET BACKGROUND KAMPUS
-		else if (where === "kampus" && waktu === "Pagi") {
+		else if (
+			where === "kampus" &&
+			waktu === "Pagi" &&
+			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle" || "Snow")
+		) {
+			setBackground(campus_morning_hujan);
+		} else if (
+			where === "kampus" &&
+			waktu === "Pagi" &&
+			data.weather[0].main ===
+				("Clear" ||
+					"Clouds" ||
+					"Mist" ||
+					"Haze" ||
+					"Fog" ||
+					"Smoke" ||
+					"Dust" ||
+					"Sand" ||
+					"Ash" ||
+					"Squall" ||
+					"Tornado")
+		) {
 			setBackground(campus_morning);
-		} else if (where === "kampus" && waktu === "Siang") {
+		} else if (
+			where === "kampus" &&
+			waktu === "Siang" &&
+			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle" || "Snow")
+		) {
+			setBackground(campus_afternoon_hujan);
+		} else if (
+			where === "kampus" &&
+			waktu === "Siang" &&
+			data.weather[0].main ===
+				("Clear" ||
+					"Clouds" ||
+					"Mist" ||
+					"Haze" ||
+					"Fog" ||
+					"Smoke" ||
+					"Dust" ||
+					"Sand" ||
+					"Ash" ||
+					"Squall" ||
+					"Tornado")
+		) {
 			setBackground(campus_afternoon);
-		} else if (where === "kampus" && waktu === "Sore") {
+		} else if (
+			where === "kampus" &&
+			waktu === "Sore" &&
+			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle" || "Snow")
+		) {
+			setBackground(campus_evening_hujan);
+		} else if (
+			where === "kampus" &&
+			waktu === "Sore" &&
+			data.weather[0].main ===
+				("Clear" ||
+					"Clouds" ||
+					"Mist" ||
+					"Haze" ||
+					"Fog" ||
+					"Smoke" ||
+					"Dust" ||
+					"Sand" ||
+					"Ash" ||
+					"Squall" ||
+					"Tornado")
+		) {
 			setBackground(campus_evening);
 		} else if (where === "kampus" && waktu === "Malam") {
 			setBackground(campus_night);
@@ -685,6 +764,7 @@ function GamePage() {
 			setWarnaMain("#D0DCE5");
 			setWarnaBelajar("#D0DCE5");
 			setIncrementTidur(incrementTidur + 1);
+			tidurSound();
 
 			// SET AVATAR
 			if (current === 0) {
@@ -719,6 +799,7 @@ function GamePage() {
 			setWarnaBelajar("#D0DCE5");
 			setWarnaSleep("#D0DCE5");
 			setIncrementMakan(incrementMakan + 1);
+			makanSound();
 
 			// SET AVATAR
 			// SET AVATAR
@@ -754,7 +835,7 @@ function GamePage() {
 			setWarnaMain("#D0DCE5");
 			setWarnaSleep("#D0DCE5");
 			setIncrementBelajar(incrementBelajar + 1);
-			console.log(incrementBelajar);
+			belajarSound();
 
 			// SET AVATAR
 			// SET AVATAR
@@ -790,6 +871,7 @@ function GamePage() {
 			setWarnaMakan("#D0DCE5");
 			setWarnaSleep("#D0DCE5");
 			setIncrementMain(incrementMain + 1);
+			mainSound();
 
 			// SET AVATAR
 			if (current === 0) {
