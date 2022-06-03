@@ -6,8 +6,6 @@ import {
 	Button,
 	Flex,
 	Box,
-	Heading,
-	Image,
 	Text,
 	Modal,
 	ModalOverlay,
