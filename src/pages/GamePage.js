@@ -22,7 +22,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../lib/UserContext";
 import { Icon } from "@iconify/react";
 import Jam from "../components/Jam/Jam";
-import News from "../components/News/News";
 import Pause from "../components/Pause/Pause";
 import useSound from "use-sound";
 
@@ -1131,7 +1130,7 @@ function GamePage() {
 								Logout
 							</Button>
 						</Link>
-						<News />
+
 						<Pause />
 					</Flex>
 				</Flex>
