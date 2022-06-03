@@ -6,6 +6,10 @@
 
 https://youtu.be/lLVcpBeXVyU
 
+### Link GITHUB Repositories
+
+https://github.com/geraldimanuelstudent/UAS-PTI
+
 ### Anggota
 
 - Gerald Imanuel Wijaya/[Geri](https://github.com/geraldimanuelstudent) (00000060106)
