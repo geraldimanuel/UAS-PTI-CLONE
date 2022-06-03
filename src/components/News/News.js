@@ -8,11 +8,9 @@ import {
 	DrawerContent,
 	DrawerCloseButton,
 	Button,
-	Input,
 	useDisclosure,
 	Heading,
 	Box,
-	Flex,
 	Text,
 } from "@chakra-ui/react";
 

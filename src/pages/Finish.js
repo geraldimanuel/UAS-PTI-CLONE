@@ -12,14 +12,14 @@ import default_4 from "../Assets/pictures/avatar/avatar_4/default_4.png";
 import default_5 from "../Assets/pictures/avatar/avatar_5/default_5.png";
 
 function Finish() {
-	const { current, setCurrent } = useContext(UserContext);
+	const { current } = useContext(UserContext);
 	const [avatar, setAvatar] = useState();
-	const { loginData, setLoginData } = useContext(UserContext);
-	const { incrementMakan, setIncrementMakan } = useContext(UserContext);
-	const { incrementTidur, setIncrementTidur } = useContext(UserContext);
-	const { incrementMain, setIncrementMain } = useContext(UserContext);
-	const { incrementBelajar, setIncrementBelajar } = useContext(UserContext);
-	const { pesan, setPesan } = useContext(UserContext);
+	const { loginData } = useContext(UserContext);
+	const { incrementMakan } = useContext(UserContext);
+	const { incrementTidur } = useContext(UserContext);
+	const { incrementMain } = useContext(UserContext);
+	const { incrementBelajar } = useContext(UserContext);
+	const { pesan } = useContext(UserContext);
 
 	//FUNCTION PASS AVATAR
 	function passAvatar() {
@@ -39,6 +39,7 @@ function Finish() {
 	useEffect(() => {
 		passAvatar();
 	}, []);
+
 	return (
 		<Flex
 			className="main-div"
@@ -116,10 +117,25 @@ function Finish() {
 									<Heading size="lg"> : {incrementTidur}</Heading>
 								</Flex>
 							</Flex>
-							<Flex justifyContent="center" alignItems="center">
+							<Flex
+								justifyContent="center"
+								alignItems="center"
+								flexDirection="column"
+							>
 								<Text fontSize="l" as="i" textAlign="center">
 									"{pesan}"
 								</Text>
+								<Button
+									marginTop="15px"
+									as={Link}
+									to="/"
+									borderRadius="30px"
+									width="100px"
+									bg="#DD9A9A"
+									color="#C25050"
+								>
+									<Icon icon="codicon:debug-restart" width="30px" />
+								</Button>
 							</Flex>
 						</Flex>
 					</Flex>

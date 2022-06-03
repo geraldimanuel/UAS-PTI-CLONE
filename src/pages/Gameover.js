@@ -1,12 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Flex, Box, Image, Heading, Text, Button } from "@chakra-ui/react";
+import { Flex, Heading, Button } from "@chakra-ui/react";
 import { UserContext } from "../lib/UserContext";
 import { Icon } from "@iconify/react";
 
 function Gameover() {
-	const { pesanMati, setPesanMati } = useContext(UserContext);
-	const { pesan, setPesan } = useContext(UserContext);
+	const { pesanMati } = useContext(UserContext);
 
 	return (
 		<Flex

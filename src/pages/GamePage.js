@@ -64,9 +64,9 @@ import home_evening from "../Assets/pictures/places/home/home_evening.jpg";
 import home_night from "../Assets/pictures/places/home/home_night.jpg";
 
 import campus_morning from "../Assets/pictures/places/campus/campus_morning.jpg";
-import campus_afternoon from "../Assets/pictures/places/campus/campus_afternoon.jpg";
+
 import campus_evening from "../Assets/pictures/places/campus/campus_evening.jpg";
-import campus_night from "../Assets/pictures/places/campus/campus_night.jpg";
+
 import campus_morning_hujan from "../Assets/pictures/places/campus/campus_morning_hujan.png";
 import campus_afternoon_hujan from "../Assets/pictures/places/campus/campus_afternoon_hujan.png";
 import campus_evening_hujan from "../Assets/pictures/places/campus/campus_evening_hujan.png";
@@ -88,30 +88,21 @@ import belajar from "../Assets/music/belajar.m4a";
 import tidur from "../Assets/music/tidur.m4a";
 
 function GamePage() {
-	// RESPONSIVE STYLE
-	const breakpoints = {
-		sm: "30em",
-		md: "48em",
-		lg: "62em",
-		xl: "80em",
-		"2xl": "96em",
-	};
-
 	// USE CONTEXT
-	const { loginData, setLoginData } = useContext(UserContext);
-	const { current, setCurrent } = useContext(UserContext);
-	const { waktu, setWaktu } = useContext(UserContext);
-	const { increment, setIncrement } = useContext(UserContext);
-	const { noCampus, setNoCampus } = useContext(UserContext);
-	const { pause, setPause } = useContext(UserContext);
+	const { loginData } = useContext(UserContext);
+	const { current } = useContext(UserContext);
+	const { waktu } = useContext(UserContext);
+	const { increment } = useContext(UserContext);
+	const { noCampus } = useContext(UserContext);
+	const { pause } = useContext(UserContext);
 	const { intervalPause, setIntervalPause } = useContext(UserContext);
 	// DECLARE UNTUK HITUNG JUMLAH BUTTON DISENTUH
 	const { incrementMakan, setIncrementMakan } = useContext(UserContext);
 	const { incrementTidur, setIncrementTidur } = useContext(UserContext);
 	const { incrementMain, setIncrementMain } = useContext(UserContext);
 	const { incrementBelajar, setIncrementBelajar } = useContext(UserContext);
-	const { pesan, setPesan } = useContext(UserContext);
-	const { pesanMati, setPesanMati } = useContext(UserContext);
+	const { setPesan } = useContext(UserContext);
+	const { setPesanMati } = useContext(UserContext);
 
 	// SOUND EFFECT
 	const [makanSound] = useSound(makan);
@@ -423,7 +414,6 @@ function GamePage() {
 			updateStatus(button, where);
 			AlertMakan();
 			AlertTidur();
-			// AlertBelajar();
 			AlertSosial();
 			AlertMain();
 		}, intervalPause);
@@ -549,77 +539,30 @@ function GamePage() {
 		}
 
 		// SET BACKGROUND KAMPUS
-		else if (
+		else if (where === "kampus" && waktu === "Pagi") {
+			setBackground(campus_morning);
+		} else if (where === "kampus" && waktu === "Siang") {
+			setBackground(campus_morning);
+		} else if (where === "kampus" && waktu === "Sore") {
+			setBackground(campus_evening);
+		} else if (
 			where === "kampus" &&
 			waktu === "Pagi" &&
-			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle" || "Snow")
+			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle")
 		) {
 			setBackground(campus_morning_hujan);
 		} else if (
 			where === "kampus" &&
-			waktu === "Pagi" &&
-			data.weather[0].main ===
-				("Clear" ||
-					"Clouds" ||
-					"Mist" ||
-					"Haze" ||
-					"Fog" ||
-					"Smoke" ||
-					"Dust" ||
-					"Sand" ||
-					"Ash" ||
-					"Squall" ||
-					"Tornado")
-		) {
-			setBackground(campus_morning);
-		} else if (
-			where === "kampus" &&
 			waktu === "Siang" &&
-			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle" || "Snow")
+			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle")
 		) {
 			setBackground(campus_afternoon_hujan);
 		} else if (
 			where === "kampus" &&
-			waktu === "Siang" &&
-			data.weather[0].main ===
-				("Clear" ||
-					"Clouds" ||
-					"Mist" ||
-					"Haze" ||
-					"Fog" ||
-					"Smoke" ||
-					"Dust" ||
-					"Sand" ||
-					"Ash" ||
-					"Squall" ||
-					"Tornado")
-		) {
-			setBackground(campus_afternoon);
-		} else if (
-			where === "kampus" &&
 			waktu === "Sore" &&
-			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle" || "Snow")
+			data.weather[0].main === ("Rain" || "Thunderstorm" || "Drizzle")
 		) {
 			setBackground(campus_evening_hujan);
-		} else if (
-			where === "kampus" &&
-			waktu === "Sore" &&
-			data.weather[0].main ===
-				("Clear" ||
-					"Clouds" ||
-					"Mist" ||
-					"Haze" ||
-					"Fog" ||
-					"Smoke" ||
-					"Dust" ||
-					"Sand" ||
-					"Ash" ||
-					"Squall" ||
-					"Tornado")
-		) {
-			setBackground(campus_evening);
-		} else if (where === "kampus" && waktu === "Malam") {
-			setBackground(campus_night);
 		}
 
 		// // SET BACKGROUND CAFE
@@ -907,9 +850,7 @@ function GamePage() {
 				pt="30px"
 				pb="10px"
 				flexDirection={{ base: "column", md: "row" }}
-				// height="100vh"
 				justifyContent="space-around"
-				// marginTop="-40px"
 			>
 				<Box className="avatarGame">
 					<Image
@@ -1027,16 +968,6 @@ function GamePage() {
 								w="full"
 							/>
 						</Flex>
-						{/* <Flex className="bungkus-bar-pause">
-							<Flex className="main-bar" gap={2} flexDirection="column"></Flex>
-							<Flex alignItems="center">
-								<Icon
-									icon="bi:pause-circle-fill"
-									width="50px"
-									color="#0b66ae"
-								/>
-							</Flex>
-						</Flex> */}
 					</Flex>
 					<Flex
 						className="activity-button-group"

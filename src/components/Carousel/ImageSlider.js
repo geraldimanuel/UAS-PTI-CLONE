@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { SliderData } from "./SliderData";
 import { Icon } from "@iconify/react";
-import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { Flex, Box } from "@chakra-ui/core";
 import { UserContext } from "lib/UserContext";
 
@@ -43,11 +42,7 @@ const ImageSlider = ({ slides }) => {
 									// onClick={nextSlide}
 								>
 									{index === current && (
-										<img
-											src={slide.image}
-											alt="travel image"
-											className="image"
-										/>
+										<img src={slide.image} alt="" className="image" />
 									)}
 								</Flex>
 							);

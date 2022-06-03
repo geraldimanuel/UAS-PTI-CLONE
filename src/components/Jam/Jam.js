@@ -8,12 +8,12 @@ function Jam() {
 	const [jam, setJam] = useState(startOfWeek(startOfToday()));
 
 	// DECLARE VALUE BUAT TAU SKRG JAM BRP HARI APA
-	const { waktu, setWaktu } = useContext(UserContext);
+	const { setWaktu } = useContext(UserContext);
 	const { increment, setIncrement } = useContext(UserContext);
-	const { noCampus, setNoCampus } = useContext(UserContext);
+	const { setNoCampus } = useContext(UserContext);
 
 	// UNTUK PAUSE
-	const { intervalPause, setIntervalPause } = useContext(UserContext);
+	const { intervalPause } = useContext(UserContext);
 
 	// FUNCTION UNTUK TAU SEKARANG JAM BERAPA
 	function JamSekarang() {

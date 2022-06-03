@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import GamePage from "./pages/GamePage";
 import LoginPage from "./pages/LoginPage";
 import Finish from "./pages/Finish";

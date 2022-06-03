@@ -15,7 +15,7 @@ function Pause() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const cancelRef = React.useRef();
 	const { isClickedPause, setIsClickedPause } = useContext(UserContext);
-	const { pause, setPause } = useContext(UserContext);
+	const { setPause } = useContext(UserContext);
 
 	// FUNCTION HANDLE PAUSE
 	function togglePause() {
