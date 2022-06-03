@@ -20,8 +20,12 @@ function App() {
 	const [increment, setIncrement] = useState(0);
 
 	// FUNCTION GAK KAMPUS
-
 	const [noCampus, setNoCampus] = useState("");
+
+	// FUNCTION PAUSE
+	const [pause, setPause] = useState("");
+	const [isClickedPause, setIsClickedPause] = useState(true);
+	const [intervalPause, setIntervalPause] = useState("1000");
 
 	return (
 		<BrowserRouter>
@@ -37,13 +41,20 @@ function App() {
 					setIncrement,
 					noCampus,
 					setNoCampus,
+					pause,
+					setPause,
+					isClickedPause,
+					setIsClickedPause,
+					intervalPause,
+					setIntervalPause,
 				}}
 			>
 				<Routes>
 					<Route path="/" element={<LoginPage />} />
 					<Route path="/GamePage" element={<GamePage />} />
-					<Route path="/ImageSlider" element={<ImageSlider />} />
+					{/* <Route path="/ImageSlider" element={<ImageSlider />} />
 					<Route path="/Jam" element={<Jam />} />
+					<Route path="/Pause" element={<Jam />} /> */}
 				</Routes>
 			</UserContext.Provider>
 		</BrowserRouter>

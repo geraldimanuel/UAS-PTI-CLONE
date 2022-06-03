@@ -36,8 +36,9 @@ function News() {
 				ref={btnRef}
 				onClick={onOpen}
 				borderRadius="30px"
-				width="150px"
+				width={{ md: "160px", base: "300px" }}
 				bgColor="#B4EBC7"
+				color="#519D6B"
 			>
 				News
 			</Button>

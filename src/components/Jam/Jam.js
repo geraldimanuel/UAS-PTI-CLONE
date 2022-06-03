@@ -12,6 +12,9 @@ function Jam() {
 	const { increment, setIncrement } = useContext(UserContext);
 	const { noCampus, setNoCampus } = useContext(UserContext);
 
+	// UNTUK PAUSE
+	const { intervalPause, setIntervalPause } = useContext(UserContext);
+
 	// FUNCTION UNTUK TAU SEKARANG JAM BERAPA
 	function JamSekarang() {
 		if (format(jam, "HH") >= "04" && format(jam, "HH") < "12") {
@@ -51,7 +54,7 @@ function Jam() {
 			refreshJam();
 			JamSekarang();
 			HariSekarang();
-		}, 1000);
+		}, intervalPause);
 		return () => clearInterval(interval);
 	});
 

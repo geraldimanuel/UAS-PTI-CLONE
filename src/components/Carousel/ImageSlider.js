@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { SliderData } from "./SliderData";
+import { Icon } from "@iconify/react";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 import { Flex, Box } from "@chakra-ui/core";
 import { UserContext } from "lib/UserContext";
@@ -7,13 +8,6 @@ import { UserContext } from "lib/UserContext";
 const ImageSlider = ({ slides }) => {
 	const { current, setCurrent } = useContext(UserContext);
 	const length = slides.length;
-
-	// useEffect(() => {
-	// 	const interval = setInterval(() => {
-	// 		console.log(current);
-	// 	}, 1000);
-	// 	return () => clearInterval(interval);
-	// });
 
 	const nextSlide = () => {
 		setCurrent(current === length - 1 ? 0 : current + 1);
@@ -29,45 +23,66 @@ const ImageSlider = ({ slides }) => {
 
 	return (
 		<Flex flexDirection="column" justifyContent="center" alignItems="center">
-			<section className="slider">
-				{SliderData.map((slide, index) => {
-					return (
-						<Flex
-							className={index === current ? "slide active" : "slide"}
-							key={index}
-							// onClick={nextSlide}
-						>
-							{index === current && (
-								<img
-									width="300px"
-									src={slide.image}
-									alt="travel image"
-									className="image"
-								/>
-							)}
-						</Flex>
-					);
-				})}
-			</section>
-			<Flex>
-				<Box p="10px">
-					<FaArrowAltCircleLeft
-						className="left-arrow"
+			<Flex alignItems="center" justifyContent="center">
+				<Box>
+					<Icon
+						icon="ic:round-navigate-before"
+						width="30px"
 						onClick={() => {
 							prevSlide();
-							// console.log(current);
 						}}
 					/>
 				</Box>
-				<Box p="10px">
-					<FaArrowAltCircleRight
-						className="right-arrow"
+				<Flex>
+					<section className="slider">
+						{SliderData.map((slide, index) => {
+							return (
+								<Flex
+									className={index === current ? "slide active" : "slide"}
+									key={index}
+									// onClick={nextSlide}
+								>
+									{index === current && (
+										<img
+											src={slide.image}
+											alt="travel image"
+											className="image"
+										/>
+									)}
+								</Flex>
+							);
+						})}
+					</section>
+				</Flex>
+				<Box>
+					<Icon
+						icon="ic:round-navigate-next"
+						width="30px"
 						onClick={() => {
 							nextSlide();
-							// console.log(current);
 						}}
 					/>
 				</Box>
+			</Flex>
+			<Flex>
+				{/* <Box p="3px">
+					<Icon
+						icon="ic:round-navigate-before"
+						width="30px"
+						onClick={() => {
+							prevSlide();
+						}}
+					/>
+				</Box>
+				<Box p="3px">
+					<Icon
+						icon="ic:round-navigate-next"
+						width="30px"
+						onClick={() => {
+							nextSlide();
+						}}
+					/>
+				</Box> */}
 			</Flex>
 		</Flex>
 	);

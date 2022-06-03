@@ -79,12 +79,23 @@ import supermarket_night from "../Assets/pictures/places/supermarket/supermarket
 import { hide } from "@popperjs/core";
 
 function GamePage() {
+	// RESPONSIVE STYLE
+	const breakpoints = {
+		sm: "30em",
+		md: "48em",
+		lg: "62em",
+		xl: "80em",
+		"2xl": "96em",
+	};
+
 	// USE CONTEXT
 	const { loginData, setLoginData } = useContext(UserContext);
 	const { current, setCurrent } = useContext(UserContext);
 	const { waktu, setWaktu } = useContext(UserContext);
 	const { increment, setIncrement } = useContext(UserContext);
 	const { noCampus, setNoCampus } = useContext(UserContext);
+	const { pause, setPause } = useContext(UserContext);
+	const { intervalPause, setIntervalPause } = useContext(UserContext);
 
 	// USE NAVIGATE
 	let navigate = useNavigate();
@@ -359,7 +370,7 @@ function GamePage() {
 		} else if (data.weather[0].main === "Drizzle") {
 			setIcon("fluent:weather-drizzle-24-filled");
 		} else if (data.weather[0].main === "Snow") {
-			setIcon("ri:snowflake-fill");
+			setIcon("ph:snowflake-bold");
 		} else if (data.weather[0].main === "Mist") {
 			setIcon("tabler:mist");
 		} else if (data.weather[0].main === "Haze") {
@@ -367,17 +378,26 @@ function GamePage() {
 		} else if (data.weather[0].main === "Fog") {
 			setIcon("tabler:mist");
 		} else if (data.weather[0].main === "Smoke") {
-			setIcon("ri:smoke-fill");
+			setIcon("carbon:smoke");
 		} else if (data.weather[0].main === "Dust") {
-			setIcon("ri:dust-fill");
+			setIcon("fluent:weather-duststorm-20-filled");
 		} else if (data.weather[0].main === "Sand") {
-			setIcon("ri:sandstorm-fill");
+			setIcon("icon-park-outline:sandstorm");
 		} else if (data.weather[0].main === "Ash") {
-			setIcon("ri:ash-fill");
+			setIcon("emojione-monotone:dashing-away");
 		} else if (data.weather[0].main === "Squall") {
-			setIcon("ri:squall-fill");
+			setIcon("fluent:weather-squalls-24-filled");
 		} else if (data.weather[0].main === "Tornado") {
-			setIcon("ri:tornado-fill");
+			setIcon("uil:tornado");
+		}
+	}
+
+	// FUNCTION UNTUK PAUSE
+	function handlePause() {
+		if (pause === "pause") {
+			setIntervalPause("1000000");
+		} else if (pause === "") {
+			setIntervalPause("1000");
 		}
 	}
 
@@ -390,7 +410,7 @@ function GamePage() {
 			// AlertBelajar(interval);
 			AlertSosial(interval);
 			AlertMain(interval);
-		}, 1000);
+		}, intervalPause);
 		return () => clearInterval(interval);
 	});
 
@@ -402,6 +422,7 @@ function GamePage() {
 			WeatherIcon();
 			IsiSalam();
 			HideKampus();
+			handlePause();
 		}, 1);
 
 		return () => clearInterval(interval);
@@ -802,8 +823,10 @@ function GamePage() {
 			<Flex
 				alignItems="center"
 				px="30px"
+				pt="30px"
+				pb="10px"
 				flexDirection={{ base: "column", md: "row" }}
-				height="100vh"
+				// height="100vh"
 				justifyContent="space-around"
 				// marginTop="-40px"
 			>
@@ -817,10 +840,10 @@ function GamePage() {
 				</Box>
 				<Flex
 					className="interface"
-					width="400px"
+					width={{ md: "400px", base: "350px" }}
 					gap="15px"
 					flexDirection="column"
-					marginBottom="10px"
+					marginBottom="5px"
 				>
 					<Flex
 						className="greetings-weather"
@@ -953,7 +976,7 @@ function GamePage() {
 								onClick={sleepHandler}
 								bg={warnaSleep}
 								borderRadius="30px"
-								width="160px"
+								width={{ md: "160px", base: "300px" }}
 							>
 								Sleep
 							</Button>
@@ -964,7 +987,7 @@ function GamePage() {
 								onClick={eatHandler}
 								bg={warnaMakan}
 								borderRadius="30px"
-								width="160px"
+								width={{ md: "160px", base: "300px" }}
 							>
 								Eat
 							</Button>
@@ -975,7 +998,7 @@ function GamePage() {
 								onClick={mainHandler}
 								bg={warnaMain}
 								borderRadius="30px"
-								width="160px"
+								width={{ md: "160px", base: "300px" }}
 							>
 								Play
 							</Button>
@@ -986,7 +1009,7 @@ function GamePage() {
 								onClick={belajarHandler}
 								bg={warnaBelajar}
 								borderRadius="30px"
-								width="160px"
+								width={{ md: "160px", base: "300px" }}
 							>
 								Study
 							</Button>
@@ -1008,7 +1031,7 @@ function GamePage() {
 								bg="#D6BCF8"
 								color="#AF8EDB"
 								borderRadius="30px"
-								width="150px"
+								width={{ md: "160px", base: "300px" }}
 								onClick={onOpen}
 							>
 								Change Location
@@ -1034,7 +1057,7 @@ function GamePage() {
 											<Button
 												bg={warnaHome}
 												borderRadius="30px"
-												width="160px"
+												width={{ md: "160px", base: "300px" }}
 												onClick={toggleHouse}
 											>
 												Home
@@ -1043,7 +1066,7 @@ function GamePage() {
 												<Button
 													bg={warnaKampus}
 													borderRadius="30px"
-													width="160px"
+													width={{ md: "160px", base: "300px" }}
 													onClick={toggleKampus}
 												>
 													Campus
@@ -1052,7 +1075,7 @@ function GamePage() {
 											<Button
 												bg={warnaCafe}
 												borderRadius="30px"
-												width="160px"
+												width={{ md: "160px", base: "300px" }}
 												onClick={toggleCafe}
 											>
 												Cafe
@@ -1060,7 +1083,7 @@ function GamePage() {
 											<Button
 												bg={warnaSupermarket}
 												borderRadius="30px"
-												width="160px"
+												width={{ md: "160px", base: "300px" }}
 												onClick={toggleSupermarket}
 											>
 												Supermarket
@@ -1086,7 +1109,7 @@ function GamePage() {
 						<Link to="/">
 							<Button
 								borderRadius="30px"
-								width="150px"
+								width={{ md: "160px", base: "300px" }}
 								bg="#DD9A9A"
 								color="#C25050"
 							>

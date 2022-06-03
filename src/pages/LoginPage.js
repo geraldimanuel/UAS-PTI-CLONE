@@ -62,7 +62,6 @@ function HowToPlayButton() {
 	return (
 		<Box>
 			<Button
-				ml="4"
 				onClick={() => {
 					setOverlay(<OverlayOne />);
 					onOpen();
@@ -72,6 +71,7 @@ function HowToPlayButton() {
 				border="1px solid"
 				borderColor="#000000"
 				textAlign={["center"]}
+				width={{ md: "140px", base: "290px" }}
 			>
 				Cara Bermain
 			</Button>
@@ -141,6 +141,7 @@ function AboutButton() {
 				border="1px solid"
 				borderColor="#000000"
 				textAlign={["center"]}
+				width={{ md: "140px", base: "290px" }}
 			>
 				Tentang Kami
 			</Button>
@@ -212,7 +213,6 @@ function LoginPage() {
 			alignItems="center"
 			justifyContent="center"
 			bgColor="#0B66AE"
-			gap="15px"
 			height="100vh"
 		>
 			<Flex
@@ -223,11 +223,11 @@ function LoginPage() {
 				alignItems="center"
 				justifyContent="center"
 				flexDirection={{ base: "column", md: "row" }}
-				px="70px"
-				py="70px"
+				p={{ md: "70px", base: "30px" }}
+				width={{ md: "700px", base: "350px", sm: "100px" }}
 			>
 				<Flex alignItems="center" justifyContent="center">
-					<Box className="carousel">
+					<Box className="carousel" width="350px">
 						<ImageSlider slides={SliderData} />
 					</Box>
 				</Flex>
@@ -263,6 +263,8 @@ function LoginPage() {
 						// flexDirection="column"
 						justifyContent="center"
 						alignItems="center"
+						flexDirection={{ md: "row", base: "column" }}
+						gap="7px"
 					>
 						<AboutButton />
 						<HowToPlayButton />
