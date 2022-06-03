@@ -3,9 +3,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import GamePage from "./pages/GamePage";
 import LoginPage from "./pages/LoginPage";
-import ImageSlider from "components/Carousel/ImageSlider";
 import { UserContext } from "./lib/UserContext";
-import Jam from "../src/components/Jam/Jam";
 
 function App() {
 	const [loginData, setLoginData] = useState({
