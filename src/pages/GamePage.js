@@ -76,7 +76,6 @@ import supermarket_morning from "../Assets/pictures/places/supermarket/supermark
 import supermarket_afternoon from "../Assets/pictures/places/supermarket/supermarket_afternoon.jpg";
 import supermarket_evening from "../Assets/pictures/places/supermarket/supermarket_evening.jpg";
 import supermarket_night from "../Assets/pictures/places/supermarket/supermarket_night.jpg";
-import { hide } from "@popperjs/core";
 
 function GamePage() {
 	// RESPONSIVE STYLE
@@ -96,6 +95,13 @@ function GamePage() {
 	const { noCampus, setNoCampus } = useContext(UserContext);
 	const { pause, setPause } = useContext(UserContext);
 	const { intervalPause, setIntervalPause } = useContext(UserContext);
+	// DECLARE UNTUK HITUNG JUMLAH BUTTON DISENTUH
+	const { incrementMakan, setIncrementMakan } = useContext(UserContext);
+	const { incrementTidur, setIncrementTidur } = useContext(UserContext);
+	const { incrementMain, setIncrementMain } = useContext(UserContext);
+	const { incrementBelajar, setIncrementBelajar } = useContext(UserContext);
+	const { pesan, setPesan } = useContext(UserContext);
+	const { pesanMati, setPesanMati } = useContext(UserContext);
 
 	// USE NAVIGATE
 	let navigate = useNavigate();
@@ -105,12 +111,6 @@ function GamePage() {
 	const [location, setLocation] = useState("");
 	const url = `https://api.openweathermap.org/data/2.5/weather?lat=-6.261180
 	&lon=106.616820&units=imperial&appid=ab0f345ea0cbf3b442ca0d46875f076b`;
-
-	// DECLARE UNTUK HITUNG JUMLAH BUTTON DISENTUH
-	const [incrementMakan, setIncrementMakan] = useState(0);
-	const [incrementTidur, setIncrementTidur] = useState(0);
-	const [incrementMain, setIncrementMain] = useState(0);
-	const [incrementBelajar, setIncrementBelajar] = useState(0);
 
 	// DECLARE UNTUK RUBAH ICON CUACA
 	const [icon, setIcon] = useState("");
@@ -405,11 +405,11 @@ function GamePage() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			updateStatus(button, where);
-			AlertMakan(interval);
-			AlertTidur(interval);
-			// AlertBelajar(interval);
-			AlertSosial(interval);
-			AlertMain(interval);
+			AlertMakan();
+			AlertTidur();
+			// AlertBelajar();
+			AlertSosial();
+			AlertMain();
 		}, intervalPause);
 		return () => clearInterval(interval);
 	});
@@ -444,47 +444,34 @@ function GamePage() {
 	});
 
 	// FUNCTION ALERT MAKAN
-	function AlertMakan(interval) {
+	function AlertMakan() {
 		if (statusMakan <= 1) {
-			clearInterval(interval);
-			alert("Anda mati karena dehidrasi dan kurang gizi!");
-			navigate("/");
+			setPesanMati("Anda mati karena dehidrasi dan kurang gizi!");
+			navigate("/Gameover");
 		}
 	}
 
-	//FUNCTION ALERT BELAJAR *bikin nanti berdasarkan waktu*
-	// function AlertBelajar(interval) {
-	// 	if (statusBelajar === 0 && increment === 1) {
-	// 		clearInterval(interval);
-	// 		alert("Anda di DO, karena tidak pernah belajar!");
-	// 		navigate("/");
-	// 	}
-	// }
-
-	//FUNCTION ALERT MAIN
-	function AlertMain(interval) {
+	//FUNCTION MATI MAIN
+	function AlertMain() {
 		if (statusMain <= 1) {
-			clearInterval(interval);
-			alert("Anda meninggal karena depresi! ");
-			navigate("/");
+			setPesanMati("Anda meninggal karena depresi! ");
+			navigate("/Gameover");
 		}
 	}
 
-	//FUNCTION ALERT SOSIAL
-	function AlertSosial(interval) {
+	//FUNCTION MATI SOSIAL
+	function AlertSosial() {
 		if (statusSosial <= 1) {
-			clearInterval(interval);
-			alert("Anda meninggal karena depresi! ");
-			navigate("/");
+			setPesanMati("Anda meninggal karena depresi! ");
+			navigate("/Gameover");
 		}
 	}
 
-	//FUNCTION ALERT TIDUR
-	function AlertTidur(interval) {
+	//FUNCTION MATI TIDUR
+	function AlertTidur() {
 		if (statusTuru <= 1) {
-			clearInterval(interval);
-			alert("Anda mati karena kurang tidur!");
-			navigate("/");
+			setPesanMati("Anda mati karena kurang tidur!");
+			navigate("/Gameover");
 		}
 	}
 
@@ -496,28 +483,39 @@ function GamePage() {
 			incrementMakan >= incrementTidur &&
 			incrementMakan >= incrementMain
 		) {
-			alert("Selama seminggu ini kamu sering makan!");
+			alert("Selamat anda sudah melewati 7 hari");
+			setPesan("Selama seminggu ini kamu sering makan!");
+			navigate("/Finish");
 		} else if (
 			increment === 7 &&
 			incrementBelajar >= incrementMakan &&
 			incrementBelajar >= incrementTidur &&
 			incrementBelajar >= incrementMain
 		) {
-			alert("Selama seminggu ini kamu sering belajar!");
+			alert("Selamat anda sudah melewati 7 hari");
+			setPesan(
+				"Selama seminggu ini kamu sering belajar! kamu cocok jadi anak " +
+					loginData.jurusan
+			);
+			navigate("/Finish");
 		} else if (
 			increment === 7 &&
 			incrementTidur >= incrementMakan &&
 			incrementTidur >= incrementBelajar &&
 			incrementTidur >= incrementMain
 		) {
-			alert("Selama seminggu ini kamu sering tidur!");
+			alert("Selamat anda sudah melewati 7 hari");
+			setPesan("Selama seminggu ini kamu sering tidur!");
+			navigate("/Finish");
 		} else if (
 			increment === 7 &&
 			incrementMain >= incrementMakan &&
 			incrementMain >= incrementBelajar &&
 			incrementMain >= incrementTidur
 		) {
-			alert("Selama seminggu ini kamu sering main!");
+			alert("Selamat anda sudah melewati 7 hari");
+			setPesan("Selama seminggu ini kamu sering main!");
+			navigate("/Finish");
 		}
 	}
 
@@ -844,7 +842,6 @@ function GamePage() {
 					width={{ md: "400px", base: "350px" }}
 					gap="15px"
 					flexDirection="column"
-					marginBottom="5px"
 				>
 					<Flex
 						className="greetings-weather"
@@ -875,7 +872,7 @@ function GamePage() {
 					<Flex
 						className="progress-bar"
 						bg="#EAF0F6"
-						p="20px"
+						p="30px"
 						borderRadius="30px"
 						flexDirection="column"
 						gap={3}
@@ -885,8 +882,6 @@ function GamePage() {
 							<Progress
 								value={statusBelajar}
 								height="25px"
-								aria-valuemin={0}
-								aria-valuemax={100}
 								bg="white"
 								borderRadius="30px"
 								icon="fa-solid:book-reader"
@@ -968,7 +963,7 @@ function GamePage() {
 						p="20px"
 						flexDirection="row"
 						flexWrap="wrap"
-						gap="15px"
+						gap="20px"
 						justifyContent="center"
 					>
 						{hideSleep && (
@@ -1023,7 +1018,7 @@ function GamePage() {
 						p="20px"
 						flexDirection="row"
 						flexWrap="wrap"
-						gap="15px"
+						gap="20px"
 						justifyContent="center"
 					>
 						<Flex>

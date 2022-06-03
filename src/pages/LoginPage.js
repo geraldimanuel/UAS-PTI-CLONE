@@ -269,20 +269,6 @@ function LoginPage() {
 					</Flex>
 				</Flex>
 			</Flex>
-
-			{/* 			
-			<Box className="carousel">
-				<ImageSlider slides={SliderData} />
-			</Box>
-			
-			<Box className="dropDown">
-				<PilihJurusan />
-			</Box>
-			<Box className="submitButton">
-				<Link to="/GamePage">
-					<Button>Submit</Button>
-				</Link>
-			</Box> */}
 		</Flex>
 	);
 }
