@@ -1117,7 +1117,7 @@ function GamePage() {
 								Logout
 							</Button>
 						</Link>
-						<News />
+						{/* <News /> */}
 						<Pause />
 					</Flex>
 				</Flex>
