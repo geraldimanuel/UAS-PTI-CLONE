@@ -20,7 +20,6 @@ function News() {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 
-	// get data using axios from https://newsapi.org/v2/top-headlines?country=id&apiKey=169c0cc2f63b475fb0236c42e4777cfd
 	const [data, setData] = React.useState([]);
 	React.useEffect(() => {
 		fetch(
