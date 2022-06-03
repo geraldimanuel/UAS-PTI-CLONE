@@ -15,6 +15,7 @@ import {
 	ModalBody,
 	ModalCloseButton,
 	useDisclosure,
+	AspectRatio,
 } from "@chakra-ui/react";
 import ImageSlider from "../components/Carousel/ImageSlider";
 import { SliderData } from "../components/Carousel/SliderData";
@@ -168,6 +169,18 @@ function AboutButton() {
 						<br />
 						<Text>Michael Danda Pratama (00000055630) as</Text>
 						<Text as="i">Algorithm Designer and Assets Designer</Text>
+						<br />
+						<AspectRatio maxW="560px" ratio={1}>
+							<iframe
+								width="560"
+								height="315"
+								src="https://www.youtube.com/embed/lLVcpBeXVyU"
+								title="YouTube video player"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen
+							></iframe>
+						</AspectRatio>
 					</ModalBody>
 					<ModalFooter>
 						<Button onClick={onClose}>Close</Button>
